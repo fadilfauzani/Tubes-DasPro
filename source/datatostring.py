@@ -5,4 +5,3 @@ def datatostring(data):
         if (i != len(data) - 1):
             s += ","
     return s
-print(datatostring([1,23123,23]))
