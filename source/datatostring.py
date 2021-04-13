@@ -4,4 +4,4 @@ def datatostring(data):
         s += str(data[i])
         if (i != len(data) - 1):
             s += ","
-    return s
+    return s + '\n'

@@ -15,3 +15,12 @@ def stringtodata(s):
                 datas.append(data)
         i += 1
     return datas
+
+def csvtodata(csv):
+    datas = []
+    f = open(csv, "r")
+    lines  = f.readlines()
+    for i in lines:
+        datas.append(stringtodata(i))
+    return datas
+print(csvtodata("saves/2020/user.csv"))
