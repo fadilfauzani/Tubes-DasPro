@@ -3,6 +3,7 @@ import datetime
 userid = 'bambang'
 gadget = [['G1','Gateway to Anywhere','deskripsi',50,'S','2020']]
 gadget_borrow_history = []
+gadget_return_history = []
 
 def isIdValid(id):
     global gadget
@@ -46,32 +47,5 @@ def getTransactionID():
     global gadget_borrow_history
     return str(len(gadget_borrow_history) + 1)
 
-def pinjam():
-    global gadget, gadget_borrow_history
-    id = input("Masukan ID item: ")
-    tanggal = input("Tanggal peminjaman: ")
-    jumlahPeminjaman = int(input("Jumlah peminjaman: "))
-    if (isIdValid(id) and isDateValid(tanggal)):
-        iid = idStored(id)
-        if (isJumlahPeminjamanValid(iid,jumlahPeminjaman)):
-            gadget[iid][3] = gadget[iid][3] - jumlahPeminjaman
-            gadget_borrow_history.append([getTransactionID(),userid,id,tanggal,jumlahPeminjaman])
-        else:
-            print("\nGagal melakukan peminjaman karena item tidak mencukupi")
-    else:
-        if (not(isIdValid(id)) and not(isDateValid(tanggal))):
-            print("Gagal melakukan peminjaman karena ID item dan tanggal tidak valid")
-        else:
-            if (not(isIdValid(id))):
-                print("Gagal melakukan peminjaman karena ID item tidak valid")
-            if (not(isDateValid(tanggal))):
-                print("Gagal melakukan peminjaman karena tanggal tidak valid")
-pinjam()
-
-# Test output
-'''
-for i in range (len(gadget_borrow_history)):
-    for j in range (5):
-        print(gadget_borrow_history[i][j], end = ' ')
-    print()
-'''
+def kembalikan():
+    global gadget_borrow_history, 
