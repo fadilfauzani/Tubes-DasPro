@@ -1,6 +1,5 @@
 gadgets = [["1","aaa","aa","10","A","2000"],["2","bbb","bb","40","B","1999"]]
 
-
 def carirarity() :
     available = False
     rarity = input("Masukan rarity : ")
