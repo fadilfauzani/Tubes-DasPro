@@ -1,3 +1,5 @@
+users = []
+
 def login() :
     akses = False
 
