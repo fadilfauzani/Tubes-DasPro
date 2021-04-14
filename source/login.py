@@ -11,6 +11,8 @@ def login() :
             akses = True
 
     if akses : 
+        print()
         print ("Halo " + username + "! Selamat datang di Kantong Ajaib.")
     else :
+        print()
         print ("Username atau password salah, silahkan coba lagi.")
