@@ -1,5 +1,5 @@
-gadgets = [['G1']]
-consums = []
+gadgets = [['G1','Nama','desk','40']]
+consums = [['C1','Nama','desk','40']]
 
 def idxID(id):
     global gadgets, consums
@@ -74,7 +74,39 @@ def hapusitem():
 
     else:
         print("Tidak ada item dengan ID tersebut")
-tambahitem()
+def ubahjum():
+    global gadgets, consums
+    id = input('Masukan ID: ')
+    if (idada(id)):
+        jumlah = int(input('Masukan Jumlah: '))
+        if (id[0] == 'G'):
+            jumasli = int(gadgets[idxID(id)][3])
+            if (jumlah > 0):
+                gadgets[idxID(id)][3] = str(jumasli + jumlah)
+                print(f'{jumlah} {gadgets[idxID(id)][1]} berhasil ditambahkan. Stok sekarang: {gadgets[idxID(id)][3]}')
+            else:
+                if (jumasli + jumlah < 0):
+                    print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekaran: {gadgets[idxID(id)][3]} < {-jumlah}')
+                else:
+                    gadgets[idxID(id)][3] = str(jumasli + jumlah)
+                    print(f'{-jumlah} {gadgets[idxID(id)][1]} berhasil dibuang. Stok sekarang: {gadgets[idxID(id)][3]}')
+        else:
+            jumasli = int(consums[idxID(id)][3])
+            if (jumlah > 0):
+                consums[idxID(id)][3] = str(jumasli + jumlah)
+                print(f'{jumlah} {consums[idxID(id)][1]} berhasil ditambahkan. Stok sekarang: {consums[idxID(id)][3]}')
+            else:
+                if (jumasli + jumlah < 0):
+                    print(f'{-jumlah} {consums[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekaran: {consums[idxID(id)][3]} < {-jumlah}')
+                else:
+                    consums[idxID(id)][3] = str(jumasli + jumlah)
+                    print(f'{-jumlah} {consums[idxID(id)][1]} berhasil dibuang. Stok sekarang: {consums[idxID(id)][3]}')
+    else:
+        print("Tidak ada item dengan ID tersebut!")
+#tambahitem()
+#print(gadgets)
+#hapusitem()
+#print(gadgets)
+ubahjum()
 print(gadgets)
-hapusitem()
-print(gadgets)
+print(consums)
