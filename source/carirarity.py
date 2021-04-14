@@ -1,3 +1,5 @@
+gadgets = []
+
 def carirarity() :
     rarity = input("Masukan rarity : ")
     print()
