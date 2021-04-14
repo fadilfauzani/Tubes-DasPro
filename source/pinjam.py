@@ -56,6 +56,7 @@ def pinjam():
         if (isJumlahPeminjamanValid(iid,jumlahPeminjaman)):
             gadget[iid][3] = gadget[iid][3] - jumlahPeminjaman
             gadget_borrow_history.append([getTransactionID(),userid,id,tanggal,jumlahPeminjaman])
+            print("Item {} (x{}) berhasil dipinjam!".format(gadget[iid][1], jumlahPeminjaman))
         else:
             print("\nGagal melakukan peminjaman karena item tidak mencukupi")
     else:
