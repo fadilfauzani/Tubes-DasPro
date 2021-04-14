@@ -29,7 +29,7 @@ def csvtodata(csv):
 def register() :
     Userada = False
 
-    nama = input("Masukan nama : ")
+    nama = (input("Masukan nama : ")).title()
     username = input("Masukan username : ")
     password = input("Masukan password : ")
     alamat = input("Masukan alamat : ")
