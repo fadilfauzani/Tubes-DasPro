@@ -30,6 +30,12 @@ try:
     riwpin_gadget.write("id,id_peminjam,id_gadget,tanggal_peminjaman,jumlah\n")
     riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
     riwpen_gadget.write("id,id_peminjam,id_gadget_tanggal_peminjaman\n")
+    user.close()
+    gadget.close()
+    consum.close()
+    riw_consum.close()
+    riwpin_gadget.close()
+    riwpen_gadget.close()
     
 except:
     pass
