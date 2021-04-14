@@ -27,26 +27,25 @@ def csvtodata(csv):
     return datas
 
 def register() :
-    a = open("user.csv", "r")
-    data = csvtodata("user.csv")
-    lines = len(data)
-    a.close()
-    kondisi = True
+    Userada = False
 
     nama = input("Masukan nama : ")
     username = input("Masukan username : ")
     password = input("Masukan password : ")
     alamat = input("Masukan alamat : ")
 
-    for i in range (lines) : 
-        if username == data[1][i] :
-            kondisi = False
+    for i in range (len(users)) : 
+        if username == users[i][1] :
+            Userada = True
 
-    if kondisi : 
-        users.append([str(lines),username,nama,alamat,password,"user"])
+    if (not(Userada)) : 
+        users.append([len(users)+1,username,nama,alamat,password,"user"])
         print ()
         print ("User " + username + " telah berhasil register ke dalam Kantong Ajaib")
     else : 
         print ("Username sudah ada, registrasi gagal")
 
 register()
+print(users)
+register()
+print(users)
