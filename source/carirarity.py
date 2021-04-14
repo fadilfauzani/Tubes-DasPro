@@ -1,4 +1,4 @@
-gadgets = []
+gadgets = [["1","aaa","aa","10","A","2000"],["2","bbb","bb","40","B","1999"]]
 
 def carirarity() :
     rarity = input("Masukan rarity : ")

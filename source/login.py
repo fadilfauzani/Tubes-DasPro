@@ -1,4 +1,4 @@
-users = []
+users = [["1","fadil","fadill","kotabumi","asdasd","admin"],["2","fudil","fadill","kotabumi","asdasd","user"]]
 
 def login() :
     akses = False
