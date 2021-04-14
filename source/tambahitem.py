@@ -71,9 +71,9 @@ def hapusitem():
                 gadgets.pop(idxID(id))
             else:
                 consums.pop(idxID(id))
-
     else:
         print("Tidak ada item dengan ID tersebut")
+
 def ubahjum():
     global gadgets, consums
     id = input('Masukan ID: ')
