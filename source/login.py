@@ -16,3 +16,4 @@ def login() :
     else :
         print()
         print ("Username atau password salah, silahkan coba lagi.")
+login()
