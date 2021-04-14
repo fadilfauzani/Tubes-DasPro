@@ -1,4 +1,4 @@
-users = []
+users = [["1","fadil","fadill","kotabumi","asdasd","admin"],["2","fudil","fadill","kotabumi","asdasd","user"]]
 
 def login() :
     akses = False
@@ -12,7 +12,8 @@ def login() :
 
     if akses : 
         print()
-        print ("Halo " + username + "! Selamat datang di Kantong Ajaib.")
+        print("Halo " + username + "! Selamat datang di Kantong Ajaib.")
     else :
         print()
-        print ("Username atau password salah, silahkan coba lagi.")
+        print("Username atau password salah, silahkan coba lagi.")
+login()
