@@ -1,5 +1,5 @@
-id,username,nama,alamat,password,role
-1,fadil,fadill,kotabumi,asdasd,admin
-2,fudil,fadill,kotabumi,asdasd,user
-3,fadil,fadill,kotabumi,asdasd,admin
-4,fudil,fadill,kotabumi,asdasd,user
+id;username;nama;alamat;password;role
+1;fadil;fadill;kotabumi;asdasd;admin
+2;fudil;fadill;kotabumi;asdasd;user
+3;fadil;fadill;kotabumi;asdasd;admin
+4;fudil;fadill;kotabumi;asdasd;user

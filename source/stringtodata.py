@@ -6,7 +6,7 @@ def stringtodata(s):
     i = 0
     data = ""
     while (i < len(s)):
-        if (s[i]==','):
+        if (s[i]==';'):
             datas.append(data)
             data = ""
         else:
