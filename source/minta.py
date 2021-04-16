@@ -44,7 +44,7 @@ def isJumlahValid(id,jumlah):
 
 def getTransactionID():
     global consumable_history
-    return str(len(consumable_history) + 1)
+    return len(consumable_history) + 1
 
 def minta():
     id = input("Masukan ID item: ")

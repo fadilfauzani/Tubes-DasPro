@@ -44,7 +44,7 @@ def isJumlahPeminjamanValid(id,jumlahPeminjaman):
 
 def getTransactionID():
     global gadget_borrow_history
-    return str(len(gadget_borrow_history) + 1)
+    return len(gadget_borrow_history) + 1
 
 def pinjam():
     global gadget, gadget_borrow_history
@@ -70,9 +70,4 @@ def pinjam():
 pinjam()
 
 # Test output
-'''
-for i in range (len(gadget_borrow_history)):
-    for j in range (5):
-        print(gadget_borrow_history[i][j], end = ' ')
-    print()
-'''
+# print(gadget_borrow_history)
