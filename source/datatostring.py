@@ -3,5 +3,5 @@ def datatostring(data):
     for i in range (len(data)):
         s += str(data[i])
         if (i != len(data) - 1):
-            s += ","
+            s += ";"
     return s + '\n'
