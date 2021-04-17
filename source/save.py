@@ -5,10 +5,10 @@ def datatostring(data):
     for i in range (len(data)):
         s += str(data[i])
         if (i != len(data) - 1):
-            s += ","
+            s += ";"
     return s+ '\n'
 
-users = [[3,"fadil","fadill","kotabumi","asdasd","admin"],[4,"fudil","fadill","kotabumi","asdasd","user"]]
+users = [(3,"fadil","fadill","kotabumi","asdasd","admin"),[4,"fudil","fadill","kotabumi","asdasd","user"]]
 gadgets = []
 consums = []
 riw_consums = []
@@ -19,33 +19,21 @@ def save():
     path = 'saves/' + path
     try:
         os.mkdir(path)
-        user = open(path+"/user.csv","w")
-        user.write("id;username;nama;alamat;password;role\n")
-        gadget = open(path+"/gadget.csv","w")
-        gadget.write("id;nama;deskripsi;jumlah;rarity;tahun_ditemukan\n")
-        consum = open(path+"/consumable.csv","w")
-        consum.write("id;nama;deskripsi;jumlah;rarity\n")
-        riw_consum = open(path+"/consumable_history.csv","w")
-        riw_consum.write("id;id_pengambil;id_consumable;tanggal_peminjaman;jumlah\n")
-        riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
-        riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah\n")
-        riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
-        riwpen_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman\n")
-        user.close()
-        gadget.close()
-        consum.close()
-        riw_consum.close()
-        riwpin_gadget.close()
-        riwpen_gadget.close()
+        
     except:
         pass
-    user = open(path+"/user.csv","a")
-    gadget = open(path+"/gadget.csv","a")
-    consum = open(path+"/consumable.csv","a")
-    riw_consum = open(path+"/consumable_history.csv","a")
-    riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "a")
-    riwpen_gadget = open(path+ "/gadget_return_history.csv","a")
-
+    user = open(path+"/user.csv","w")
+    user.write("id;username;nama;alamat;password;role\n")
+    gadget = open(path+"/gadget.csv","w")
+    gadget.write("id;nama;deskripsi;jumlah;rarity;tahun_ditemukan\n")
+    consum = open(path+"/consumable.csv","w")
+    consum.write("id;nama;deskripsi;jumlah;rarity\n")
+    riw_consum = open(path+"/consumable_history.csv","w")
+    riw_consum.write("id;id_pengambil;id_consumable;tanggal_peminjaman;jumlah\n")
+    riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
+    riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah\n")
+    riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
+    riwpen_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman\n")
     for i in users:
         user.write(datatostring(i))
     for i in gadgets:
@@ -64,3 +52,4 @@ def save():
     riw_consum.close()
     riwpin_gadget.close()
     riwpen_gadget.close()
+save()
