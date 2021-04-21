@@ -47,6 +47,7 @@ def getItemIndex(item_ID):
     return gadget_index
 
 def pinjam():
+    global gadget, gadget_borrow_history, user_ID
     item_ID = input("Masukan ID item: ")
     borrow_date = input("Tanggal peminjaman: ")
     borrow_quantity = int(input("Jumlah peminjaman: "))

@@ -39,6 +39,7 @@ def getConsumableIndex(item_ID):
     return consumable_index
 
 def minta():
+    global user_ID, consumable_history, consumable
     item_ID = input("Masukan ID item: ")
     take_quantity = int(input("Jumlah: "))
     take_date = input("Tanggal permintaan: ")
