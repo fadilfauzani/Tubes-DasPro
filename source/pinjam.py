@@ -1,73 +1,81 @@
 import datetime
 
-userid = 'bambang'
-gadget = [['G1','Gateway to Anywhere','deskripsi',50,'S','2020']]
-gadget_borrow_history = []
+user_ID = 'udin'
+gadget = [['G1','Gateway to Anywhere','deskripsi',50,'S','2020'],['G2','Ditto Bread','deskripsi',10,'A','2019']]
+gadget_borrow_history = [[1,"udin","G1","20/12/2020",10, False],[2,"bambang","G1","10/12/2020",10, False]]
+gadget_return_history = []
 
-def isIdValid(id):
+def isItemIDValid(item_ID):
     global gadget
-    bool = False
     i = 0
-    while (bool == False) and (i < len(gadget)):
-        if (gadget[i][0] == id):
-            bool = True
-        else:
-            i = i + 1
-    return bool
+    found = False
+    while (i < len(gadget) and (found == False)):
+        if (gadget[i][0] == item_ID):
+            found = True
+        i = i + 1
+    return found
 
-def idStored(id):
-    global gadget
-    bool = False
-    i = 0
-    while (bool == False):
-        if (gadget[i][0] == id):
-            bool = True
-        else:
-            i = i + 1
-    return i
-
-# Source: https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
-def isDateValid(tanggal):
+def isDateValid(date):
     bool = True
     try:
-        datetime.datetime.strptime(tanggal, '%d/%m/%Y')        
+        datetime.datetime.strptime(date, '%d/%m/%Y')        
     except ValueError:
         bool = False
     return bool
 
-def isJumlahPeminjamanValid(id,jumlahPeminjaman):
-    global gadget
-    if (gadget[id][3] >= jumlahPeminjaman) :
-        return True
-    else:
-        return False
+def isReturned(item_ID):
+    global gadget_borrow_history, user_ID
+    bool = True
+    for i in range (len(gadget_borrow_history)):
+        if (user_ID == gadget_borrow_history[i][1]) and (item_ID == gadget_borrow_history[i][2]):
+            bool = gadget_borrow_history[i][5]
+    return bool
 
-def getTransactionID():
-    global gadget_borrow_history
-    return len(gadget_borrow_history) + 1
+def isQuantityValid(item_ID,borrow_quantity):
+    global gadget
+    for i in range (len(gadget)):
+        if (gadget[i][0] == item_ID):
+            if (borrow_quantity > gadget[i][3]):
+                bool = False
+            else :
+                bool = True
+            break
+    return bool
+
+def getItemIndex(item_ID):
+    global gadget
+    for i in range (len(gadget)):
+        if (item_ID == gadget[i][0]):
+            item_index = i
+            break
+    return item_index
 
 def pinjam():
-    global gadget, gadget_borrow_history
-    id = input("Masukan ID item: ")
-    tanggal = input("Tanggal peminjaman: ")
-    jumlahPeminjaman = int(input("Jumlah peminjaman: "))
-    if (isIdValid(id) and isDateValid(tanggal)):
-        iid = idStored(id)
-        if (isJumlahPeminjamanValid(iid,jumlahPeminjaman)):
-            gadget[iid][3] = gadget[iid][3] - jumlahPeminjaman
-            gadget_borrow_history.append([getTransactionID(),userid,id,tanggal,jumlahPeminjaman])
-            print("Item {} (x{}) berhasil dipinjam!".format(gadget[iid][1], jumlahPeminjaman))
-        else:
-            print("\nGagal melakukan peminjaman karena item tidak mencukupi")
-    else:
-        if (not(isIdValid(id)) and not(isDateValid(tanggal))):
-            print("Gagal melakukan peminjaman karena ID item dan tanggal tidak valid")
-        else:
-            if (not(isIdValid(id))):
-                print("Gagal melakukan peminjaman karena ID item tidak valid")
-            if (not(isDateValid(tanggal))):
-                print("Gagal melakukan peminjaman karena tanggal tidak valid")
+    item_ID = input("Masukan ID item: ")
+    borrow_date = input("Tanggal peminjaman: ")
+    borrow_quantity = int(input("Jumlah peminjaman: "))
+
+    if (isItemIDValid(item_ID) and isDateValid(borrow_date)):
+        if (isReturned(item_ID)):
+            if (isQuantityValid(item_ID,borrow_quantity)):
+                item_index = getItemIndex(item_ID)
+                gadget[item_index][3] = gadget[item_index][3] - borrow_quantity
+                gadget_borrow_history.append([(len(gadget_borrow_history) + 1),user_ID,item_ID,borrow_date,borrow_quantity,False])
+                item_name = gadget[item_index][1]
+                print("Item {} (x{}) berhasil dipinjam!".format(item_name,borrow_quantity))
+            else :
+                print("Gagal melakukan peminjaman karena jumlah melebihi batas")
+        else :
+            print("Gagal melakukan peminjaman karena item belum dikembalikan")
+    else :
+        if (not(isItemIDValid(item_ID)) and not(isDateValid(borrow_date))):
+            print("Gagal melakukan peminjaman karena ID item dan tanggal peminjaman tidak valid")
+        elif (not(isItemIDValid(item_ID))):
+            print("Gagal melakukan peminjaman karena ID item tidak valid")
+        elif (not(isDateValid(borrow_date))):
+            print("Gagal melakukan peminjaman karena tanggal peminjaman tidak valid") 
+
 pinjam()
 
-# Test output
-# print(gadget_borrow_history)
+print(gadget)
+print(gadget_borrow_history)
