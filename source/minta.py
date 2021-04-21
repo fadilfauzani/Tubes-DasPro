@@ -62,5 +62,7 @@ def minta():
                 print("Gagal melakukan permintaan karena tanggal tidak valid")
 
 minta()
+'''
 print(consumable)
 print(consumable_history)
+'''

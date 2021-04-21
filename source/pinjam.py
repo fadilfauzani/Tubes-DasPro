@@ -74,5 +74,7 @@ def pinjam():
 
 pinjam()
 
+'''
 print(gadget)
 print(gadget_borrow_history)
+'''

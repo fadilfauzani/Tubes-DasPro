@@ -81,6 +81,8 @@ def kembalikan():
 
 kembalikan()
 #Test
+'''
 print(gadget)
 print(gadget_return_history)
 print(gadget_borrow_history)
+'''
