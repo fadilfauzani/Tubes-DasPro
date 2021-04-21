@@ -1,70 +1,65 @@
 import datetime
 
-userid = 'bambang'
+user_ID = 'bambang'
 consumable = [['C1','Dorayaki Rasa Nasi Rames','deskripsi',50,'S']]
 consumable_history = []
 
-def isIdValid(id):
+def isConsumableIDValid(item_ID):
     global consumable
     bool = False
     i = 0
     while (bool == False) and (i < len(consumable)):
-        if (consumable[i][0] == id):
+        if (consumable[i][0] == item_ID):
             bool = True
-        else:
-            i = i + 1
+        i = i + 1
     return bool
 
-def idStored(id):
-    global consumable
-    bool = False
-    i = 0
-    while (bool == False):
-        if (consumable[i][0] == id):
-            bool = True
-        else:
-            i = i + 1
-    return i
-
 # Source: https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
-def isDateValid(tanggal):
+def isDateValid(date):
     bool = True
     try:
-        datetime.datetime.strptime(tanggal, '%d/%m/%Y')        
+        datetime.datetime.strptime(date, '%d/%m/%Y')        
     except ValueError:
         bool = False
     return bool
 
-def isJumlahValid(id,jumlah):
+def isQuantityValid(consumable_index,take_quantity):
     global consumable
-    if (consumable[id][3] >= jumlah) :
+    if (consumable[consumable_index][3] >= take_quantity) :
         return True
     else:
         return False
 
-def getTransactionID():
-    global consumable_history
-    return len(consumable_history) + 1
+def getConsumableIndex(item_ID):
+    global consumable
+    for i in range (len(consumable)):
+        if(item_ID == consumable[i][0]):
+            consumable_index = i
+            break
+    return consumable_index
 
 def minta():
-    id = input("Masukan ID item: ")
-    jumlah = int(input("Jumlah: "))
-    tanggal = input("Tanggal permintaan: ")
-    if (isIdValid(id) and isDateValid(tanggal)):
-        iid = idStored(id)
-        if (isJumlahValid(iid,jumlah)):
-            consumable[iid][3] = consumable[iid][3] - jumlah
-            consumable_history.append([getTransactionID(),userid,id,tanggal,jumlah])
-            print("Item {} (x{}) telah berhasil diambil!".format(consumable[iid][1], jumlah))
+    item_ID = input("Masukan ID item: ")
+    take_quantity = int(input("Jumlah: "))
+    take_date = input("Tanggal permintaan: ")
+    if (isConsumableIDValid(item_ID) and isDateValid(take_date)):
+        consumable_index = getConsumableIndex(item_ID)
+        if (isQuantityValid(consumable_index,take_quantity)):
+            consumable[consumable_index][3] = consumable[consumable_index][3] - take_quantity
+            consumable_history.append([(len(consumable_history) + 1),user_ID,item_ID,take_date,take_quantity])
+            consumable_name = consumable[consumable_index][1]
+            print("Item {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
             print("\nGagal melakukan permintaan karena item tidak mencukupi")
     else:
-        if (not(isIdValid(id)) and not(isDateValid(tanggal))):
+        if (not(isConsumableIDValid(item_ID)) and not(isDateValid(take_date))):
             print("Gagal melakukan permintaan karena ID item dan tanggal tidak valid")
         else:
-            if (not(isIdValid(id))):
+            if (not(isConsumableIDValid(item_ID))):
                 print("Gagal melakukan permintaan karena ID item tidak valid")
-            if (not(isDateValid(tanggal))):
+            if (not(isDateValid(take_date))):
                 print("Gagal melakukan permintaan karena tanggal tidak valid")
 
 minta()
+print(consumable)
+print(consumable_history)

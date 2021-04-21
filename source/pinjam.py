@@ -8,12 +8,12 @@ gadget_return_history = []
 def isItemIDValid(item_ID):
     global gadget
     i = 0
-    found = False
-    while (i < len(gadget) and (found == False)):
+    bool = False
+    while (i < len(gadget) and (bool == False)):
         if (gadget[i][0] == item_ID):
-            found = True
+            bool = True
         i = i + 1
-    return found
+    return bool
 
 def isDateValid(date):
     bool = True
@@ -31,24 +31,20 @@ def isReturned(item_ID):
             bool = gadget_borrow_history[i][5]
     return bool
 
-def isQuantityValid(item_ID,borrow_quantity):
+def isQuantityValid(gadget_index,borrow_quantity):
     global gadget
-    for i in range (len(gadget)):
-        if (gadget[i][0] == item_ID):
-            if (borrow_quantity > gadget[i][3]):
-                bool = False
-            else :
-                bool = True
-            break
-    return bool
+    if (gadget[gadget_index][3] >= borrow_quantity):
+        return True
+    else :
+        return False
 
 def getItemIndex(item_ID):
     global gadget
     for i in range (len(gadget)):
         if (item_ID == gadget[i][0]):
-            item_index = i
+            gadget_index = i
             break
-    return item_index
+    return gadget_index
 
 def pinjam():
     item_ID = input("Masukan ID item: ")
@@ -57,12 +53,12 @@ def pinjam():
 
     if (isItemIDValid(item_ID) and isDateValid(borrow_date)):
         if (isReturned(item_ID)):
-            if (isQuantityValid(item_ID,borrow_quantity)):
-                item_index = getItemIndex(item_ID)
-                gadget[item_index][3] = gadget[item_index][3] - borrow_quantity
+            gadget_index = getItemIndex(item_ID)
+            if (isQuantityValid(gadget_index,borrow_quantity)):
+                gadget[gadget_index][3] = gadget[gadget_index][3] - borrow_quantity
                 gadget_borrow_history.append([(len(gadget_borrow_history) + 1),user_ID,item_ID,borrow_date,borrow_quantity,False])
-                item_name = gadget[item_index][1]
-                print("Item {} (x{}) berhasil dipinjam!".format(item_name,borrow_quantity))
+                gadget_name = gadget[gadget_index][1]
+                print("Item {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
             else :
                 print("Gagal melakukan peminjaman karena jumlah melebihi batas")
         else :
