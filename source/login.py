@@ -1,6 +1,7 @@
 users = [["1","fadil","fadill","kotabumi","asdasd","admin"],["2","fudil","fadill","kotabumi","asdasd","user"]]
 
 def login() :
+    global user-id
     akses = False
 
     username = input("Masukan username : ")
@@ -13,6 +14,7 @@ def login() :
     if akses : 
         print()
         print("Halo " + username + "! Selamat datang di Kantong Ajaib.")
+        user-id = username
     else :
         print()
         print("Username atau password salah, silahkan coba lagi.")

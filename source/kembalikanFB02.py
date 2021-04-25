@@ -1,31 +1,31 @@
 import datetime
 
 user_ID = 'udin'
-gadget = [['G1','Gateway to Anywhere','deskripsi',50,'S','2020'],['G2','Ditto Bread','deskripsi',10,'A','2019']]
-gadget_borrow_history = [[1,"udin","G1","20/12/2020",30,True],[2,"bambang","G1","10/12/2020",10,False],[3,"udin","G2","21/12/2020",10,False]]
-gadget_return_history = [[1,1,"10/10/2020",30],[2,3,"10/10/2020",5]]
+gadgets = [['G1','Gateway to Anywhere','deskripsi',50,'S','2020'],['G2','Ditto Bread','deskripsi',10,'A','2019']]
+riwpin_gadgets = [[1,"udin","G1","20/12/2020",30,True],[2,"bambang","G1","10/12/2020",10,False],[3,"udin","G2","21/12/2020",10,False]]
+riwpen_gadgets = [[1,1,"10/10/2020",30],[2,3,"10/10/2020",4]]
 #[id,id_peminjaman,tanggal_pengembalian]
 #[id,id_peminjaman,tanggal_pengembalian,jumlah_peminjaman]
 
 def printBorrowGadget():
-    global gadget, user_ID, gadget_borrow_history, gadget_return_history
-    for i in range (len(gadget_borrow_history)):
+    global gadgets, user_ID, riwpin_gadgets, riwpen_gadgets
+    for i in range (len(riwpin_gadgets)):
         total_return = 0
-        if ((gadget_borrow_history[i][1] == user_ID) and (gadget_borrow_history[i][5] == False)):
-            for j in range (len(gadget)):
-                if (gadget_borrow_history[i][2] == gadget[j][0]):
+        if ((riwpin_gadgets[i][1] == user_ID) and (riwpin_gadgets[i][5] == False)):
+            for j in range (len(gadgets)):
+                if (riwpin_gadgets[i][2] == gadgets[j][0]):
                     gadget_index = j
                     break
-            for j in range (len(gadget_return_history)):
-                if (gadget_return_history[j][1] == (i + 1)):
-                    total_return = total_return + gadget_return_history[j][3]
-            gadget_left = gadget_borrow_history[i][4] - total_return
-            print("{}. {} (x{})".format(gadget_borrow_history[i][0],gadget[gadget_index][1],gadget_left))
+            for j in range (len(riwpen_gadgets)):
+                if (riwpen_gadgets[j][1] == (i + 1)):
+                    total_return = total_return + riwpen_gadgets[j][3]
+            gadget_left = riwpin_gadgets[i][4] - total_return
+            print("{}. {} (x{})".format(riwpin_gadgets[i][0],gadgets[gadget_index][1],gadget_left))
 
 def isBorrowNumberValid(borrow_number):
-    global gadget_borrow_history, user_ID
-    if ((borrow_number > 0) and (borrow_number <= len(gadget_borrow_history))):
-        if ((gadget_borrow_history[borrow_number - 1][5] == False) and (gadget_borrow_history[borrow_number - 1][1] == user_ID)):
+    global riwpin_gadgets, user_ID
+    if ((borrow_number > 0) and (borrow_number <= len(riwpin_gadgets))):
+        if ((riwpin_gadgets[borrow_number - 1][5] == False) and (riwpin_gadgets[borrow_number - 1][1] == user_ID)):
             return True
         else:
             return False
@@ -40,30 +40,22 @@ def isDateValid(date):
         bool = False
     return bool
 
-def getItemIndex(item_ID):
-    global gadget
-    for i in range (len(gadget)):
-        if (item_ID == gadget[i][0]):
-            gadget_index = i
-            break
-    return gadget_index
-
 def isThereBorrowedGadget():
-    global user_ID, gadget_borrow_history
+    global user_ID, riwpin_gadgets
     bool = False
-    for i in range (len(gadget_borrow_history)):
-        if (gadget_borrow_history[i][1] == user_ID) and (gadget_borrow_history[i][5] == False):
+    for i in range (len(riwpin_gadgets)):
+        if (riwpin_gadgets[i][1] == user_ID) and (riwpin_gadgets[i][5] == False):
             bool = True
             break
     return bool
 
 def gadgetLeft(borrow_number,return_amount):
-    global gadget_borrow_history, gadget_return_history
+    global riwpin_gadgets, riwpen_gadgets
     total_return = 0    
-    for i in range (len(gadget_return_history)):
-        if (gadget_return_history[i][1] == borrow_number):
-            total_return = total_return + gadget_return_history[i][3]
-    gadget_left = gadget_borrow_history[borrow_number-1][4] - total_return
+    for i in range (len(riwpen_gadgets)):
+        if (riwpen_gadgets[i][1] == borrow_number):
+            total_return = total_return + riwpen_gadgets[i][3]
+    gadget_left = riwpin_gadgets[borrow_number-1][4] - total_return
     return gadget_left
 
 def isReturnAmountValid(gadget_left,return_amount):
@@ -73,7 +65,7 @@ def isReturnAmountValid(gadget_left,return_amount):
         return False
 
 def kembalikan():
-    global user_ID, gadget, gadget_borrow_history, gadget_return_history
+    global user_ID, gadgets, riwpin_gadgets, riwpen_gadgets
 
     if (not(isThereBorrowedGadget())):
         print("Tidak ada riwayat peminjaman")
@@ -87,12 +79,12 @@ def kembalikan():
         if (isBorrowNumberValid(borrow_number) and isDateValid(return_date)):
             gadget_left = gadgetLeft(borrow_number,return_amount)
             if (isReturnAmountValid(gadget_left,return_amount)):
-                gadget_index = getItemIndex(gadget_borrow_history[borrow_number-1][2])
-                gadget_name = gadget[gadget_index][1]
-                gadget[gadget_index][3] = gadget[gadget_index][3] + return_amount
+                gadget_index = idxID(riwpin_gadgets[borrow_number-1][2])
+                gadget_name = gadgets[gadget_index][1]
+                gadgets[gadget_index][3] = gadgets[gadget_index][3] + return_amount
                 if (gadget_left == return_amount) :
-                    gadget_borrow_history[borrow_number-1][5] = True
-                gadget_return_history.append([len(gadget_return_history)+1,borrow_number,return_date,return_amount])
+                    riwpin_gadgets[borrow_number-1][5] = True
+                riwpen_gadgets.append([len(riwpen_gadgets)+1,borrow_number,return_date,return_amount])
                 print("Item {} (x{}) telah dikembalikan".format(gadget_name, return_amount))
             else:
                 print("Gagal melakukan peminjaman karena jumlah pengembalian tidak valid")
@@ -107,8 +99,7 @@ def kembalikan():
 
 kembalikan()
 #Test
-'''
-print(gadget)
-print(gadget_return_history)
-print(gadget_borrow_history)
-'''
+
+print(gadgets)
+print(riwpen_gadgets)
+print(riwpin_gadgets)

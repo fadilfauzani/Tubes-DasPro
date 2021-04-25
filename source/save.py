@@ -29,11 +29,11 @@ def save():
     consum = open(path+"/consumable.csv","w")
     consum.write("id;nama;deskripsi;jumlah;rarity\n")
     riw_consum = open(path+"/consumable_history.csv","w")
-    riw_consum.write("id;id_pengambil;id_consumable;tanggal_peminjaman;jumlah\n")
+    riw_consum.write("id;id_pengambil;id_consumable;tanggal_pengambilan;jumlah\n")
     riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
-    riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah\n")
+    riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned\n")
     riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
-    riwpen_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman\n")
+    riwpen_gadget.write("id;id_peminjaman;tanggal_peminjaman\n")
     for i in users:
         user.write(datatostring(i))
     for i in gadgets:
@@ -52,4 +52,3 @@ def save():
     riw_consum.close()
     riwpin_gadget.close()
     riwpen_gadget.close()
-save()

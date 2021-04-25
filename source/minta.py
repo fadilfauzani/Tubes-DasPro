@@ -1,15 +1,15 @@
 import datetime
 
 user_ID = 'bambang'
-consumable = [['C1','Dorayaki Rasa Nasi Rames','deskripsi',50,'S']]
-consumable_history = []
+consums = [['C1','Dorayaki Rasa Nasi Rames','deskripsi',50,'S']]
+riw_consums = []
 
 def isConsumableIDValid(item_ID):
-    global consumable
+    global consums
     bool = False
     i = 0
-    while (bool == False) and (i < len(consumable)):
-        if (consumable[i][0] == item_ID):
+    while (bool == False) and (i < len(consums)):
+        if (consums[i][0] == item_ID):
             bool = True
         i = i + 1
     return bool
@@ -24,31 +24,31 @@ def isDateValid(date):
     return bool
 
 def isQuantityValid(consumable_index,take_quantity):
-    global consumable
-    if (consumable[consumable_index][3] >= take_quantity) :
+    global consums
+    if (consums[consumable_index][3] >= take_quantity) :
         return True
     else:
         return False
 
-def getConsumableIndex(item_ID):
-    global consumable
-    for i in range (len(consumable)):
-        if(item_ID == consumable[i][0]):
+def idxID(item_ID):
+    global consums
+    for i in range (len(consums)):
+        if(item_ID == consums[i][0]):
             consumable_index = i
             break
     return consumable_index
 
 def minta():
-    global user_ID, consumable_history, consumable
+    global user_ID, riw_consums, consums
     item_ID = input("Masukan ID item: ")
     take_quantity = int(input("Jumlah: "))
     take_date = input("Tanggal permintaan: ")
     if (isConsumableIDValid(item_ID) and isDateValid(take_date)):
-        consumable_index = getConsumableIndex(item_ID)
+        consumable_index = idxID(item_ID)
         if (isQuantityValid(consumable_index,take_quantity)):
-            consumable[consumable_index][3] = consumable[consumable_index][3] - take_quantity
-            consumable_history.append([(len(consumable_history) + 1),user_ID,item_ID,take_date,take_quantity])
-            consumable_name = consumable[consumable_index][1]
+            consums[consumable_index][3] = consums[consumable_index][3] - take_quantity
+            riw_consums.append([(len(riw_consums) + 1),user_ID,item_ID,take_date,take_quantity])
+            consumable_name = consums[consumable_index][1]
             print("Item {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
             print("\nGagal melakukan permintaan karena item tidak mencukupi")
@@ -62,7 +62,6 @@ def minta():
                 print("Gagal melakukan permintaan karena tanggal tidak valid")
 
 minta()
-'''
-print(consumable)
-print(consumable_history)
-'''
+
+print(consums)
+print(riw_consums)
