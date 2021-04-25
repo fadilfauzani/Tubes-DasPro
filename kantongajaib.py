@@ -2,6 +2,7 @@ import os
 import os.path
 import argparse
 import datetime
+from datetime import datetime
 import sys
 
 def stringtodata(s):
@@ -37,33 +38,33 @@ def csvtodata(csv,type):
     lines.pop(0)
     if (type == "users"):
         for i in lines:
-            datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],stringtodata(i)[4],stringtodata(i)[5]))
+            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],stringtodata(i)[4],stringtodata(i)[5]])
             #(id,username,nama,alamat,password,role)
         return datas
     elif(type == "gadgets"):
         for i in lines:
-            datas.append((stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4],int(stringtodata(i)[5])))
+            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4],int(stringtodata(i)[5])])
             #(id,nama,desk,jumlah,rarity,tahun_ditemukan)
         return datas
     elif(type == "consums"):
         for i in lines:
-            datas.append((stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4]))
+            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4]])
             #(id,nama,desk,jumlah,rarity)
         return datas
     elif(type == "riwpin_gadgets"):
         for i in lines:
             boolean = True if (stringtodata(i)[5] == 'True') else False
-            datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4]),boolean))
+            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4]),boolean])
             #(id,id peminjan, id gadget, tanggal, jumlah, is returned)
         return datas
     elif(type == "riwpen_gadgets"):
         for i in lines:
-            datas.append((int(stringtodata(i)[0]),int(stringtodata(i)[1]),stringtodata(i)[2],int(stringtodata(i)[3])))
+            datas.append([int(stringtodata(i)[0]),int(stringtodata(i)[1]),stringtodata(i)[2],int(stringtodata(i)[3])])
             #(id,id_peminjaman, tanggal,jumlah yang dikembalikan)
         return datas
     elif(type == "riw_consums"):
         for i in lines:
-            datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])))
+            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])])
             #(id,id pengambil, id consum, tanggal, jumlah)
         return datas
 
@@ -220,13 +221,16 @@ def hapusitem():            #F06
     id = input("Masukan ID item: ")
     if (idada(id)):
         hapus = input("Apakah anda yakin ingin menghapus Pintu ke ITB (Y/N)?")
-        if (hapus):
+        if (hapus == 'Y' or hapus == 'y'):
             if (id[0] == 'G'):
                 gadgets.pop(idxID(id))
             else:
                 consums.pop(idxID(id))
+            print("Item telah berhasil dihapus dari database.")
+        else:
+            print("Item gagal dihapus dari database.")
     else:
-        print("Tidak ada item dengan ID tersebut")
+        print("Tidak ada item dengan ID tersebut.")
 
 def ubahjum():              #F07
     global gadgets, consums
@@ -415,14 +419,6 @@ def isQuantityValidC(consumable_index,take_quantity):
     else:
         return False
 
-def idxID(item_ID):
-    global consums
-    for i in range (len(consums)):
-        if(item_ID == consums[i][0]):
-            consumable_index = i
-            break
-    return consumable_index
-
 def minta():                #F10
     global userid, riw_consums, consums
     item_ID = input("Masukan ID item: ")
@@ -524,6 +520,8 @@ def riwayatkembali():       #F12
             mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
+    if (i == 0):
+        print("Riwayat pengembalian gadget masih kosong.")
 
 def riwayatpinjam():        #F11
     global riwpin_gadgets, gadgets
@@ -544,6 +542,8 @@ def riwayatpinjam():        #F11
             mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
+    if (i == 0):
+        print("Riwayat peminjaman gadget masih kosong.")
 
 def riwayatambil():         #F13
     global riw_consums, consums
@@ -564,8 +564,10 @@ def riwayatambil():         #F13
             mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
+    if (i == 0):
+        print("Riwayat pengambilan consumable masih kosong.")
 
-def printpentujuk():
+def printpetunjuk():
     print("Command error. Command tidak ada atau kamu tidak memiliki akses untuk memanggil command tersebut")
     print("ketik help untuk melihat daftar command!")
     print()
@@ -611,94 +613,96 @@ if (args.folder=='default_flag'):
 else:
     load(args.folder)
     login()
-    input()
-    while (True):
-        os.system('cls')
-        pilihan = input()
+    print()
+    while (True and userid != ''):
+        pilihan = input(">>>")
+        print()
         if (pilihan == 'login'):
             login()
-            input()
+            print()
         elif (pilihan == 'register'):
             if (role == 'admin'):
                 register()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif (pilihan == 'carirarity'):
             carirarity()
-            input()
+            print()
         elif (pilihan == 'caritahun'):
             caritahun()
-            input()
+            print()
         elif (pilihan == 'tambahitem'):
             if (role == 'admin'):
                 tambahitem()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'hapusitem'):
             if (role == 'admin'):
                 hapusitem()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'ubahjumlah'):
             if (role == 'admin'):
                 ubahjum()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'pinjam'):
             if (role == 'user'):
                 pinjam()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'kembalikan'):
             if (role == 'user'):
                 kembalikan()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'minta'):
             if (role == 'user'):
                 minta()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'riwayatpinjam'):
             if (role == 'admin'):
                 riwayatpinjam()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'riwayatkembali'):
             if (role == 'admin'):
                 riwayatkembali()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'riwayatambil'):
             if (role == 'admin'):
                 riwayatambil()
             else:
                 printpetunjuk()
-            input()
+            print()
         elif(pilihan == 'save'):
             save()
-            input()
+            print()
         elif(pilihan == 'help'):
             helpumum()
             if (role == 'admin'):
                 helpadmin()
             else:
                 helpuser()
-            input()
+            print()
         elif(pilihan == 'exit'):
             print('Apakah Anda mau melakukan penyimpanan file yang sudah diubah?(y/n)')
             mau = input()
             if (mau == 'Y' or mau == "y"):
                 save()
-            input()
+            print()
             break
-            
+        else:
+            printpetunjuk()
+            print()
