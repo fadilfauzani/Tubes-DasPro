@@ -23,6 +23,33 @@ def isDateValid(date):
         bool = False
     return bool
 
+def formatDate(date):
+    if len(date) != 10:
+        dd = ''
+        mm = ''
+        yyyy = ''
+        for i in range (len(date)):
+            if (date[i] == "/"):
+                break
+            else:
+                dd = dd + date[i]
+        if len(dd) != 2:
+            dd = '0' + dd
+        for j in range (i + 1,len(date)):
+            if (date[j] == "/"):
+                break
+            else:
+                mm = mm + date[j]    
+        if len(mm) != 2:
+            mm = '0' + mm
+        for k in range (j + 1,len(date)):
+            if (date[k] == "/"):
+                break
+            else:
+                yyyy = yyyy + date[k]
+    date = dd + '/' + mm + '/' + yyyy
+    return date
+
 def isQuantityValid(consumable_index,take_quantity):
     global consumable
     if (consumable[consumable_index][3] >= take_quantity) :
@@ -44,6 +71,7 @@ def minta():
     take_quantity = int(input("Jumlah: "))
     take_date = input("Tanggal permintaan: ")
     if (isConsumableIDValid(item_ID) and isDateValid(take_date)):
+        take_date = formatDate(take_date)
         consumable_index = getConsumableIndex(item_ID)
         if (isQuantityValid(consumable_index,take_quantity)):
             consumable[consumable_index][3] = consumable[consumable_index][3] - take_quantity

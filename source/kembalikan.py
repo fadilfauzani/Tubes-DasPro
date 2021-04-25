@@ -35,6 +35,33 @@ def isDateValid(date):
         bool = False
     return bool
 
+def formatDate(date):
+    if len(date) != 10:
+        dd = ''
+        mm = ''
+        yyyy = ''
+        for i in range (len(date)):
+            if (date[i] == "/"):
+                break
+            else:
+                dd = dd + date[i]
+        if len(dd) != 2:
+            dd = '0' + dd
+        for j in range (i + 1,len(date)):
+            if (date[j] == "/"):
+                break
+            else:
+                mm = mm + date[j]    
+        if len(mm) != 2:
+            mm = '0' + mm
+        for k in range (j + 1,len(date)):
+            if (date[k] == "/"):
+                break
+            else:
+                yyyy = yyyy + date[k]
+    date = dd + '/' + mm + '/' + yyyy
+    return date
+
 def getItemIndex(item_ID):
     global gadget
     for i in range (len(gadget)):
@@ -64,6 +91,7 @@ def kembalikan():
         return_date = input("Tanggal pengembalian: ")
 
         if (isBorrowNumberValid(borrow_number) and isDateValid(return_date)):
+            return_date = formatDate(return_date)
             gadget_index = getItemIndex(gadget_borrow_history[borrow_number-1][2])
             gadget_name = gadget[gadget_index][1]
             gadget[gadget_index][3] = gadget[gadget_index][3] + gadget_borrow_history[borrow_number-1][4]

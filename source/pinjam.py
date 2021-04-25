@@ -23,6 +23,33 @@ def isDateValid(date):
         bool = False
     return bool
 
+def formatDate(date):
+    if len(date) != 10:
+        dd = ''
+        mm = ''
+        yyyy = ''
+        for i in range (len(date)):
+            if (date[i] == "/"):
+                break
+            else:
+                dd = dd + date[i]
+        if len(dd) != 2:
+            dd = '0' + dd
+        for j in range (i + 1,len(date)):
+            if (date[j] == "/"):
+                break
+            else:
+                mm = mm + date[j]    
+        if len(mm) != 2:
+            mm = '0' + mm
+        for k in range (j + 1,len(date)):
+            if (date[k] == "/"):
+                break
+            else:
+                yyyy = yyyy + date[k]
+    date = dd + '/' + mm + '/' + yyyy
+    return date
+
 def isReturned(item_ID):
     global gadget_borrow_history, user_ID
     bool = True
@@ -53,6 +80,7 @@ def pinjam():
     borrow_quantity = int(input("Jumlah peminjaman: "))
 
     if (isItemIDValid(item_ID) and isDateValid(borrow_date)):
+        borrow_date = formatDate(borrow_date)
         if (isReturned(item_ID)):
             gadget_index = getItemIndex(item_ID)
             if (isQuantityValid(gadget_index,borrow_quantity)):
