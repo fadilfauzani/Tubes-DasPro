@@ -341,7 +341,7 @@ def isBorrowNumberValid(borrow_number):
 def isDateValid(date):
     bool = True
     try:
-        datetime.datetime.strptime(date, '%d/%m/%Y')        
+        datetime.strptime(date, '%d/%m/%Y')        
     except ValueError:
         bool = False
     return bool
@@ -508,7 +508,7 @@ def riwayatkembali():       #F12
     j = 0
     while (i<len(data_borrow) and j<5):
         print("ID Pengembalian          : "+ str(data_borrow[i][0]))
-        print("Nama pengambil           : "+ str(riwpin_gadgets[idxriw(data_borrow[i][1])][1]))
+        print("Nama pengambil           : "+ str(carinama(riwpin_gadgets[idxriw(data_borrow[i][1])][1])))
         print("Nama Gadget              : "+ gadgets[idxID(riwpin_gadgets[idxriw(data_borrow[i][1])][2])][1])
         print("Tanggal Peminjaman       : " + data_borrow[i][2])
         print("Jumlah yang dikembalikan : "+ str(data_borrow[i][3]))
@@ -523,6 +523,13 @@ def riwayatkembali():       #F12
     if (i == 0):
         print("Riwayat pengembalian gadget masih kosong.")
 
+def carinama(userid):
+    global users
+    nama = ''
+    for i in range(len(users)):
+        if (userid == users[i][1]):
+            nama = users[i][2]
+    return nama
 def riwayatpinjam():        #F11
     global riwpin_gadgets, gadgets
     data_borrow = sorted(riwpin_gadgets, key=lambda row: datetime.strptime(row[3],'%d/%m/%Y') ,reverse=True)
@@ -530,7 +537,7 @@ def riwayatpinjam():        #F11
     j = 0
     while (i<len(data_borrow) and j<5):
         print("ID Peminjaman        : "+ str(data_borrow[i][0]))
-        print("Nama pengambil       : "+ data_borrow[i][1])
+        print("Nama pengambil       : "+ carinama(data_borrow[i][1]))
         print("Nama Gadget          : "+ gadgets[idxID(data_borrow[i][2])][1])
         print("Tanggal Peminjaman   : " + data_borrow[i][3])
         print("Jumlah               : "+ str(data_borrow[i][4]))
@@ -552,7 +559,7 @@ def riwayatambil():         #F13
     j = 0
     while (i<len(data_borrow) and j<5):
         print("ID Pengambilan       : "+ str(data_borrow[i][0]))
-        print("Nama pengambil       : "+ data_borrow[i][1])
+        print("Nama pengambil       : "+ carinama(data_borrow[i][1]))
         print("Nama Consumable      : "+ consums[idxID(data_borrow[i][2])][1])
         print("Tanggal Peminjaman   : " + data_borrow[i][3])
         print("Jumlah               : "+ str(data_borrow[i][4]))
