@@ -1,2 +1,3 @@
-id;id_peminjaman;tanggal_peminjaman
+id;id_peminjaman;tanggal_peminjaman;jumlah
 1;1;26/04/2021;30
+mark
