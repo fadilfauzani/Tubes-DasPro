@@ -36,35 +36,42 @@ def csvtodata(csv,type):
     f = open(csv, "r")
     lines  = f.readlines()
     lines.pop(0)
+    i = 0
     if (type == "users"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],stringtodata(i)[4],stringtodata(i)[5]])
+        while lines[i] != 'mark':
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],stringtodata(lines[i])[4],stringtodata(lines[i])[5]])
+            i+=1
             #(id,username,nama,alamat,password,role)
         return datas
     elif(type == "gadgets"):
-        for i in lines:
-            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4],int(stringtodata(i)[5])])
+        while lines[i] != 'mark':
+            datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4],int(stringtodata(lines[i])[5])])
+            i+=1
             #(id,nama,desk,jumlah,rarity,tahun_ditemukan)
         return datas
     elif(type == "consums"):
-        for i in lines:
-            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4]])
+        while lines[i] != 'mark':
+            datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4]])
+            i+=1
             #(id,nama,desk,jumlah,rarity)
         return datas
     elif(type == "riwpin_gadgets"):
-        for i in lines:
-            boolean = True if (stringtodata(i)[5] == 'True') else False
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4]),boolean])
+        while lines[i] != 'mark':
+            boolean = True if (stringtodata(lines[i])[5] == 'True') else False
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4]),boolean])
+            i+=1
             #(id,id peminjan, id gadget, tanggal, jumlah, is returned)
         return datas
     elif(type == "riwpen_gadgets"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),int(stringtodata(i)[1]),stringtodata(i)[2],int(stringtodata(i)[3])])
+        while lines[i] != 'mark':
+            datas.append([int(stringtodata(lines[i])[0]),int(stringtodata(lines[i])[1]),stringtodata(lines[i])[2],int(stringtodata(lines[i])[3])])
+            i+=1
             #(id,id_peminjaman, tanggal,jumlah yang dikembalikan)
         return datas
     elif(type == "riw_consums"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])])
+        while lines[i] != 'mark':
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4])])
+            i+=1
             #(id,id pengambil, id consum, tanggal, jumlah)
         return datas
 
@@ -136,7 +143,7 @@ def save():                 #F15
     riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
     riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned\n")
     riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
-    riwpen_gadget.write("id;id_peminjaman;tanggal_peminjaman\n")
+    riwpen_gadget.write("id;id_peminjaman;tanggal_peminjaman;jumlah\n")
     for i in users:
         user.write(datatostring(i))
     for i in gadgets:
@@ -149,6 +156,12 @@ def save():                 #F15
         riwpin_gadget.write(datatostring(i))
     for i in riwpen_gadgets:
         riwpen_gadget.write(datatostring(i))
+    user.write('mark')
+    gadget.write('mark')
+    consum.write('mark')
+    riw_consum.write('mark')
+    riwpin_gadget.write('mark')
+    riwpen_gadget.write('mark')
     user.close()
     gadget.close()
     consum.close()
@@ -579,6 +592,15 @@ def printpetunjuk():
     print("ketik help untuk melihat daftar command!")
     print()
 
+def printstate():           #for debugging
+    print('Path = ' + str(path))
+    print('users = \n', users)
+    print('gadgets = \n',gadgets)
+    print('consums = \n', consums)
+    print('riw_consums = \n', riw_consums)
+    print('riwpin_gadgets = \n', riwpin_gadgets)
+    print('riwpen_gadgets = \n', riwpen_gadgets)
+    print('role = ', role)
 def helpumum():
     print('=============== HELP ===============')
     print('login - untuk melakukan login ke dalam sistem')
@@ -587,6 +609,7 @@ def helpumum():
     print('save - untuk menyimpan progress anda')
     print('help - untuk menampilkan list command')
     print('exit - untuk keluar dari program')
+    print('cls - untuk menbersihkan screen')
 def helpuser():
     print('pinjam - untuk meminjam gadget')
     print('kembalikan - untuk mengembalikan gadget yang dipinjam')
@@ -599,6 +622,7 @@ def helpadmin():
     print('riwayatpinjam - untuk melihat riwayat peminjaman gadget')
     print('riwayatkembali - untuk melihat riwayat pengembalian gadget')
     print('riwayatambil - untuk melihat riwaya pengambilan consumable')
+    print('state - untuk menampilkan isi tiap list')
 
 userid = ''
 path = ''
@@ -710,6 +734,13 @@ else:
                 save()
             print()
             break
+        elif(pilihan == 'cls'):
+            os.system('cls')
+        elif (pilihan =='state'):
+            if (role =='admin'):
+                printstate()
+            else:
+                printpetunjuk
         else:
             printpetunjuk()
             print()
