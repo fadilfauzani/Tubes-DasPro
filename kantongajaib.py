@@ -4,7 +4,9 @@ import argparse
 import datetime
 from datetime import datetime
 import sys
+#Program kantong ajaib
 
+#Kamus
 def stringtodata(s):
     #s adalah string yang ingin diubah menjadi data
     #dipakai untuk menggantikan fungsi split
@@ -38,38 +40,38 @@ def csvtodata(csv,type):
     lines.pop(0)
     i = 0
     if (type == "users"):
-        while lines[i] != 'mark':
+        while lines[i] != '9999;mark;mark;mark;mark;mark':
             datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],stringtodata(lines[i])[4],stringtodata(lines[i])[5]])
             i+=1
             #(id,username,nama,alamat,password,role)
         return datas
     elif(type == "gadgets"):
-        while lines[i] != 'mark':
+        while lines[i] != 'mark;mark;mark;9999;Z;9999':
             datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4],int(stringtodata(lines[i])[5])])
             i+=1
             #(id,nama,desk,jumlah,rarity,tahun_ditemukan)
         return datas
     elif(type == "consums"):
-        while lines[i] != 'mark':
+        while lines[i] != 'mark;mark;mark;9999;mark':
             datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4]])
             i+=1
             #(id,nama,desk,jumlah,rarity)
         return datas
     elif(type == "riwpin_gadgets"):
-        while lines[i] != 'mark':
+        while lines[i] != '9999;mark;mark;mark;9999;True':
             boolean = True if (stringtodata(lines[i])[5] == 'True') else False
             datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4]),boolean])
             i+=1
             #(id,id peminjan, id gadget, tanggal, jumlah, is returned)
         return datas
     elif(type == "riwpen_gadgets"):
-        while lines[i] != 'mark':
+        while lines[i] != '9999;9999;mark;9999':
             datas.append([int(stringtodata(lines[i])[0]),int(stringtodata(lines[i])[1]),stringtodata(lines[i])[2],int(stringtodata(lines[i])[3])])
             i+=1
             #(id,id_peminjaman, tanggal,jumlah yang dikembalikan)
         return datas
     elif(type == "riw_consums"):
-        while lines[i] != 'mark':
+        while lines[i] != '9999;mark;mark;mark;9999':
             datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4])])
             i+=1
             #(id,id pengambil, id consum, tanggal, jumlah)
@@ -93,7 +95,7 @@ def login() :               #F02
     password = input("Masukan password : ")
 
     for i in range (len(users)) :
-        if username == users[i][1] and password == users[i][4] :
+        if username == users[i][1] and hash(password,username) == users[i][4] :
             akses = True
             role = users[i][5]
 
@@ -104,6 +106,32 @@ def login() :               #F02
     else :
         print()
         print("Username atau password salah, silahkan coba lagi.")   
+
+def numtochr(num):
+    global chrs
+    return(chrs[num])
+def idxchr(chr):
+    global chrs
+    k = 0
+    while (k < len(chrs) and chrs[k] != chr ):
+        k += 1
+    if (k >= len(chrs)):
+        k = k % 72
+    return k
+def listtostring(l):
+    s = ''
+    for i in l:
+        s += i
+    return s
+def hash(s,key):
+    global chrs
+    has = []
+    numkey = 0
+    for i in range(len(key)):
+        numkey += idxchr(key[i])
+    for i in range (len(s)):
+        has.append(numtochr(idxchr(s[i])*(i+numkey) % 72))
+    return listtostring(has)
 
 def register() :            #F01
     Userada = False
@@ -118,7 +146,7 @@ def register() :            #F01
             Userada = True
 
     if (not(Userada)) : 
-        users.append([len(users)+1,username,nama,alamat,password,"user"])
+        users.append([len(users)+1,username,nama,alamat,hash(password,username),"user"])
         print()
         print("User " + username + " telah berhasil register ke dalam Kantong Ajaib")
     else : 
@@ -143,7 +171,7 @@ def save():                 #F15
     riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
     riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned\n")
     riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
-    riwpen_gadget.write("id;id_peminjaman;tanggal_peminjaman;jumlah\n")
+    riwpen_gadget.write("id;id_peminjaman;tanggal_pengembalian;jumlah\n")
     for i in users:
         user.write(datatostring(i))
     for i in gadgets:
@@ -156,12 +184,12 @@ def save():                 #F15
         riwpin_gadget.write(datatostring(i))
     for i in riwpen_gadgets:
         riwpen_gadget.write(datatostring(i))
-    user.write('mark')
-    gadget.write('mark')
-    consum.write('mark')
-    riw_consum.write('mark')
-    riwpin_gadget.write('mark')
-    riwpen_gadget.write('mark')
+    user.write('9999;mark;mark;mark;mark;mark')
+    gadget.write('mark;mark;mark;9999;Z;9999')
+    consum.write('mark;mark;mark;9999;mark')
+    riw_consum.write('9999;mark;mark;mark;9999')
+    riwpin_gadget.write('9999;mark;mark;mark;9999;True')
+    riwpen_gadget.write('9999;9999;mark;9999')
     user.close()
     gadget.close()
     consum.close()
@@ -257,7 +285,7 @@ def ubahjum():              #F07
                 print(f'{jumlah} {gadgets[idxID(id)][1]} berhasil ditambahkan. Stok sekarang: {gadgets[idxID(id)][3]}')
             else:
                 if (jumasli + jumlah < 0):
-                    print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekaran: {gadgets[idxID(id)][3]} < {-jumlah}')
+                    print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekarang: {gadgets[idxID(id)][3]} < {-jumlah}')
                 else:
                     gadgets[idxID(id)][3] = str(jumasli + jumlah)
                     print(f'{-jumlah} {gadgets[idxID(id)][1]} berhasil dibuang. Stok sekarang: {gadgets[idxID(id)][3]}')
@@ -624,15 +652,26 @@ def helpadmin():
     print('riwayatambil - untuk melihat riwaya pengambilan consumable')
     print('state - untuk menampilkan isi tiap list')
 
+chrs = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','!','@','#','$','%','^','&','*','(',')','1','2','3','4','5','6','7','8','9','0']
+
 userid = ''
+#nama user yang telah login
 path = ''
+#nama path saves
 users = []
+#list data user
 gadgets = []
+#list data gadget
 consums = []
+#list data consumable
 riw_consums = []
+#list data riwayat pengambilan consumable
 riwpin_gadgets = []
+#list data riwayat peminjaman gadgets
 riwpen_gadgets = []
+#list data riwayat pengembalian gadgets 
 role =''
+#role dari userid 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("folder", nargs="?", default="default_flag")
