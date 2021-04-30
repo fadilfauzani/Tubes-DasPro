@@ -1,2 +1,2 @@
-id;id_peminjaman;tanggal_peminjaman
-1;1;26/04/2021;30
+id;id_peminjaman;tanggal_pengembalian;jumlah
+9999;9999;mark;9999
