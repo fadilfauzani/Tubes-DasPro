@@ -1,5 +1,9 @@
 id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned
+<<<<<<< HEAD
 1;fudil;G1;20/04/2021;30;True
 2;RAM;G2;26/04/2021;1;False
 3;brandon;G102;30/04/2020;2;True
 4;brandon;G7;10/1/2020;10;False
+=======
+9999;mark;mark;mark;9999;True
+>>>>>>> 105172de848c385838bdb4fb444f133ead7e6d26

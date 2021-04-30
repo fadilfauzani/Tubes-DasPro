@@ -1,4 +1,5 @@
 id;nama;deskripsi;jumlah;rarity
+<<<<<<< HEAD
 C1;Dorayaki;Kesukaan doraemon;19;A
 C2;Permen kekuatan;Makan ini dan kekuatan otot anda menjadi 50 kali lipat selama 5 menit;30;C
 C3;Healing Soup;Sup ini mempercepat kemampuan regenerasi tubuh dan memulihkan tenaga;40;B
@@ -8,3 +9,10 @@ C6;Pecel Lele;Enak dimakan tapi jangan terlalu sering;50;B
 C7;Martabak Telor;Makanan malem-malem nikmat;999;B
 C8;Apel Gravitasi;Apel yang jatuh ke kepala Newton;0;S
 C30;Micin;Cemilan orang Indonesia agar tumbuh pintar;40;A
+=======
+C1;Dorayaki;Kesukaan doraemon;50;A
+C2;Permen kekuatan;Makan ini dan kekuatan otot anda menjadi 50 kali lipat selama 5 menit;30;C
+C3;Healing Soup;Sup ini mempercepat kemampuan regenerasi tubuh dan memulihkan tenaga;40;B
+C4;Elixir;Memberi pemulihan penuh dari semua status abnormal;20;S
+mark;mark;mark;9999;mark
+>>>>>>> 105172de848c385838bdb4fb444f133ead7e6d26

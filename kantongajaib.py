@@ -4,7 +4,9 @@ import argparse
 import datetime
 from datetime import datetime
 import sys
+#Program kantong ajaib
 
+#Kamus
 def stringtodata(s):
     #s adalah string yang ingin diubah menjadi data
     #dipakai untuk menggantikan fungsi split
@@ -36,35 +38,42 @@ def csvtodata(csv,type):
     f = open(csv, "r")
     lines  = f.readlines()
     lines.pop(0)
+    i = 0
     if (type == "users"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],stringtodata(i)[4],stringtodata(i)[5]])
+        while lines[i] != '9999;mark;mark;mark;mark;mark':
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],stringtodata(lines[i])[4],stringtodata(lines[i])[5]])
+            i+=1
             #(id,username,nama,alamat,password,role)
         return datas
     elif(type == "gadgets"):
-        for i in lines:
-            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4],int(stringtodata(i)[5])])
+        while lines[i] != 'mark;mark;mark;9999;Z;9999':
+            datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4],int(stringtodata(lines[i])[5])])
+            i+=1
             #(id,nama,desk,jumlah,rarity,tahun_ditemukan)
         return datas
     elif(type == "consums"):
-        for i in lines:
-            datas.append([stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4]])
+        while lines[i] != 'mark;mark;mark;9999;mark':
+            datas.append([stringtodata(lines[i])[0],stringtodata(lines[i])[1],stringtodata(lines[i])[2],int(stringtodata(lines[i])[3]),stringtodata(lines[i])[4]])
+            i+=1
             #(id,nama,desk,jumlah,rarity)
         return datas
     elif(type == "riwpin_gadgets"):
-        for i in lines:
-            boolean = True if (stringtodata(i)[5] == 'True') else False
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4]),boolean])
+        while lines[i] != '9999;mark;mark;mark;9999;True':
+            boolean = True if (stringtodata(lines[i])[5] == 'True') else False
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4]),boolean])
+            i+=1
             #(id,id peminjan, id gadget, tanggal, jumlah, is returned)
         return datas
     elif(type == "riwpen_gadgets"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),int(stringtodata(i)[1]),stringtodata(i)[2],int(stringtodata(i)[3])])
+        while lines[i] != '9999;9999;mark;9999':
+            datas.append([int(stringtodata(lines[i])[0]),int(stringtodata(lines[i])[1]),stringtodata(lines[i])[2],int(stringtodata(lines[i])[3])])
+            i+=1
             #(id,id_peminjaman, tanggal,jumlah yang dikembalikan)
         return datas
     elif(type == "riw_consums"):
-        for i in lines:
-            datas.append([int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])])
+        while lines[i] != '9999;mark;mark;mark;9999':
+            datas.append([int(stringtodata(lines[i])[0]),stringtodata(lines[i])[1],stringtodata(lines[i])[2],stringtodata(lines[i])[3],int(stringtodata(lines[i])[4])])
+            i+=1
             #(id,id pengambil, id consum, tanggal, jumlah)
         return datas
 
@@ -86,7 +95,7 @@ def login() :               #F02
     password = input("Masukan password : ")
 
     for i in range (len(users)) :
-        if username == users[i][1] and password == users[i][4] :
+        if username == users[i][1] and hash(password,username) == users[i][4] :
             akses = True
             role = users[i][5]
 
@@ -97,6 +106,32 @@ def login() :               #F02
     else :
         print()
         print("Username atau password salah, silahkan coba lagi.")   
+
+def numtochr(num):
+    global chrs
+    return(chrs[num])
+def idxchr(chr):
+    global chrs
+    k = 0
+    while (k < len(chrs) and chrs[k] != chr ):
+        k += 1
+    if (k >= len(chrs)):
+        k = k % 72
+    return k
+def listtostring(l):
+    s = ''
+    for i in l:
+        s += i
+    return s
+def hash(s,key):
+    global chrs
+    has = []
+    numkey = 0
+    for i in range(len(key)):
+        numkey += idxchr(key[i])
+    for i in range (len(s)):
+        has.append(numtochr(idxchr(s[i])*(i+numkey) % 72))
+    return listtostring(has)
 
 def register() :            #F01
     Userada = False
@@ -111,7 +146,7 @@ def register() :            #F01
             Userada = True
 
     if (not(Userada)) : 
-        users.append([len(users)+1,username,nama,alamat,password,"user"])
+        users.append([len(users)+1,username,nama,alamat,hash(password,username),"user"])
         print()
         print("User " + username + " telah berhasil register ke dalam Kantong Ajaib")
     else : 
@@ -136,7 +171,7 @@ def save():                 #F15
     riwpin_gadget = open(path+ "/gadget_borrow_history.csv", "w")
     riwpin_gadget.write("id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned\n")
     riwpen_gadget = open(path+ "/gadget_return_history.csv","w")
-    riwpen_gadget.write("id;id_peminjaman;tanggal_peminjaman\n")
+    riwpen_gadget.write("id;id_peminjaman;tanggal_pengembalian;jumlah\n")
     for i in users:
         user.write(datatostring(i))
     for i in gadgets:
@@ -149,6 +184,12 @@ def save():                 #F15
         riwpin_gadget.write(datatostring(i))
     for i in riwpen_gadgets:
         riwpen_gadget.write(datatostring(i))
+    user.write('9999;mark;mark;mark;mark;mark')
+    gadget.write('mark;mark;mark;9999;Z;9999')
+    consum.write('mark;mark;mark;9999;mark')
+    riw_consum.write('9999;mark;mark;mark;9999')
+    riwpin_gadget.write('9999;mark;mark;mark;9999;True')
+    riwpen_gadget.write('9999;9999;mark;9999')
     user.close()
     gadget.close()
     consum.close()
@@ -244,7 +285,7 @@ def ubahjum():              #F07
                 print(f'{jumlah} {gadgets[idxID(id)][1]} berhasil ditambahkan. Stok sekarang: {gadgets[idxID(id)][3]}')
             else:
                 if (jumasli + jumlah < 0):
-                    print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekaran: {gadgets[idxID(id)][3]} < {-jumlah}')
+                    print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekarang: {gadgets[idxID(id)][3]} < {-jumlah}')
                 else:
                     gadgets[idxID(id)][3] = str(jumasli + jumlah)
                     print(f'{-jumlah} {gadgets[idxID(id)][1]} berhasil dibuang. Stok sekarang: {gadgets[idxID(id)][3]}')
@@ -313,28 +354,31 @@ def caritahun() :           #F04
         print()
         print("Gadget dengan ketentuan tersebut tidak tersedia.")
 
-def printBorrowGadget():
+def printBorrowGadget(arr):
+    for i in range (len(arr)):
+        print("{}. {} (x{})".format(arr[i][0],arr[i][2],arr[i][3]))
+
+def borrowGadget():
     global gadgets, userid, riwpin_gadgets, riwpen_gadgets
+    arr = []
     for i in range (len(riwpin_gadgets)):
-        total_return = 0
         if ((riwpin_gadgets[i][1] == userid) and (riwpin_gadgets[i][5] == False)):
             for j in range (len(gadgets)):
                 if (riwpin_gadgets[i][2] == gadgets[j][0]):
                     gadget_index = j
                     break
+            total_return = 0
             for j in range (len(riwpen_gadgets)):
                 if (riwpen_gadgets[j][1] == (i + 1)):
                     total_return = total_return + riwpen_gadgets[j][3]
             gadget_left = riwpin_gadgets[i][4] - total_return
-            print("{}. {} (x{})".format(riwpin_gadgets[i][0],gadgets[gadget_index][1],gadget_left))
+            arr.append([len(arr)+1,riwpin_gadgets[i][0],gadgets[gadget_index][1],gadget_left])
+    return arr
 
-def isBorrowNumberValid(borrow_number):
+def isBorrowNumberValid(temp_riwpin_gadgets,borrow_number):
     global riwpin_gadgets, userid
-    if ((borrow_number > 0) and (borrow_number <= len(riwpin_gadgets))):
-        if ((riwpin_gadgets[borrow_number - 1][5] == False) and (riwpin_gadgets[borrow_number - 1][1] == userid)):
-            return True
-        else:
-            return False
+    if ((borrow_number > 0) and (borrow_number <= len(temp_riwpin_gadgets))):
+        return True
     else :
         return False
 
@@ -355,17 +399,8 @@ def isThereBorrowedGadget():
             break
     return bool
 
-def gadgetLeft(borrow_number,return_amount):
-    global riwpin_gadgets, riwpen_gadgets
-    total_return = 0    
-    for i in range (len(riwpen_gadgets)):
-        if (riwpen_gadgets[i][1] == borrow_number):
-            total_return = total_return + riwpen_gadgets[i][3]
-    gadget_left = riwpin_gadgets[borrow_number-1][4] - total_return
-    return gadget_left
-
 def isReturnAmountValid(gadget_left,return_amount):
-    if (return_amount <= gadget_left):
+    if (return_amount <= gadget_left) and (return_amount > 0):
         return True
     else:
         return False
@@ -375,32 +410,33 @@ def kembalikan():           #F09
 
     if (not(isThereBorrowedGadget())):
         print("Tidak ada riwayat peminjaman")
-    else: 
-        printBorrowGadget()
+    else:
+        temp_riwpin_gadgets = borrowGadget()
+        printBorrowGadget(temp_riwpin_gadgets)
 
         borrow_number = int(input("Masukan nomor peminjaman: "))
         return_date = input("Tanggal pengembalian: ")
         return_amount = int(input("Jumlah pengembalian: "))
 
-        if (isBorrowNumberValid(borrow_number) and isDateValid(return_date)):
-            gadget_left = gadgetLeft(borrow_number,return_amount)
+        if (isBorrowNumberValid(temp_riwpin_gadgets,borrow_number) and isDateValid(return_date)):
+            gadget_left = temp_riwpin_gadgets[borrow_number-1][3]
             if (isReturnAmountValid(gadget_left,return_amount)):
-                gadget_index = idxID(riwpin_gadgets[borrow_number-1][2])
+                gadget_index = idxID(riwpin_gadgets[temp_riwpin_gadgets[borrow_number-1][1]-1][2])
                 gadget_name = gadgets[gadget_index][1]
                 gadgets[gadget_index][3] = gadgets[gadget_index][3] + return_amount
                 if (gadget_left == return_amount) :
-                    riwpin_gadgets[borrow_number-1][5] = True
-                riwpen_gadgets.append([len(riwpen_gadgets)+1,borrow_number,return_date,return_amount])
+                    riwpin_gadgets[temp_riwpin_gadgets[borrow_number-1][1]-1][5] = True
+                riwpen_gadgets.append([len(riwpen_gadgets)+1,temp_riwpin_gadgets[borrow_number-1][1],return_date,return_amount])
                 print("Item {} (x{}) telah dikembalikan".format(gadget_name, return_amount))
             else:
-                print("Gagal melakukan peminjaman karena jumlah pengembalian tidak valid")
+                print("Gagal melakukan pengembalian karena jumlah pengembalian tidak valid")
         else:
-            if (not(isBorrowNumberValid(borrow_number)) and not(isDateValid(return_date))):
+            if (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number)) and not(isDateValid(return_date))):
                 print("Gagal melakukan pengembalian karena nomor peminjaman dan tanggal pengembalian tidak valid")
-            elif (not(isBorrowNumberValid(borrow_number))):
-                print("Gagal melakukan peminjaman karena nomor peminjaman tidak valid")
+            elif (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number))):
+                print("Gagal melakukan pengembalian karena nomor peminjaman tidak valid")
             elif (not(isDateValid(return_date))):
-                print("Gagal melakukan peminjaman karena tanggal pengembalian tidak valid")
+                print("Gagal melakukan pengembalian karena tanggal pengembalian tidak valid")
 
 def isConsumableIDValid(item_ID):
     global consums
@@ -414,7 +450,7 @@ def isConsumableIDValid(item_ID):
 
 def isQuantityValidC(consumable_index,take_quantity):
     global consums
-    if (consums[consumable_index][3] >= take_quantity) :
+    if (consums[consumable_index][3] >= take_quantity) and (take_quantity > 0):
         return True
     else:
         return False
@@ -432,7 +468,7 @@ def minta():                #F10
             consumable_name = consums[consumable_index][1]
             print("Item {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
-            print("\nGagal melakukan permintaan karena item tidak mencukupi")
+            print("\nGagal melakukan permintaan karena jumlah permintaan item tidak valid")
     else:
         if (not(isConsumableIDValid(item_ID)) and not(isDateValid(take_date))):
             print("Gagal melakukan permintaan karena ID item dan tanggal tidak valid")
@@ -462,7 +498,7 @@ def isReturned(item_ID):
 
 def isQuantityValidG(gadget_index,borrow_quantity):
     global gadgets
-    if (gadgets[gadget_index][3] >= borrow_quantity):
+    if (gadgets[gadget_index][3] >= borrow_quantity) and (borrow_quantity > 0):
         return True
     else :
         return False
@@ -482,7 +518,7 @@ def pinjam():               #F08
                 gadget_name = gadgets[gadget_index][1]
                 print("Item {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
             else :
-                print("Gagal melakukan peminjaman karena jumlah melebihi batas")
+                print("Gagal melakukan peminjaman karena jumlah pinjaman tidak valid")
         else :
             print("Gagal melakukan peminjaman karena item belum dikembalikan")
     else :
@@ -579,6 +615,15 @@ def printpetunjuk():
     print("ketik help untuk melihat daftar command!")
     print()
 
+def printstate():           #for debugging
+    print('Path = ' + str(path))
+    print('users = \n', users)
+    print('gadgets = \n',gadgets)
+    print('consums = \n', consums)
+    print('riw_consums = \n', riw_consums)
+    print('riwpin_gadgets = \n', riwpin_gadgets)
+    print('riwpen_gadgets = \n', riwpen_gadgets)
+    print('role = ', role)
 def helpumum():
     print('=============== HELP ===============')
     print('login - untuk melakukan login ke dalam sistem')
@@ -587,6 +632,7 @@ def helpumum():
     print('save - untuk menyimpan progress anda')
     print('help - untuk menampilkan list command')
     print('exit - untuk keluar dari program')
+    print('cls - untuk menbersihkan screen')
 def helpuser():
     print('pinjam - untuk meminjam gadget')
     print('kembalikan - untuk mengembalikan gadget yang dipinjam')
@@ -599,16 +645,28 @@ def helpadmin():
     print('riwayatpinjam - untuk melihat riwayat peminjaman gadget')
     print('riwayatkembali - untuk melihat riwayat pengembalian gadget')
     print('riwayatambil - untuk melihat riwaya pengambilan consumable')
+    print('state - untuk menampilkan isi tiap list')
+
+chrs = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','!','@','#','$','%','^','&','*','(',')','1','2','3','4','5','6','7','8','9','0']
 
 userid = ''
+#nama user yang telah login
 path = ''
+#nama path saves
 users = []
+#list data user
 gadgets = []
+#list data gadget
 consums = []
+#list data consumable
 riw_consums = []
+#list data riwayat pengambilan consumable
 riwpin_gadgets = []
+#list data riwayat peminjaman gadgets
 riwpen_gadgets = []
+#list data riwayat pengembalian gadgets 
 role =''
+#role dari userid 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("folder", nargs="?", default="default_flag")
@@ -710,6 +768,13 @@ else:
                 save()
             print()
             break
+        elif(pilihan == 'cls'):
+            os.system('cls')
+        elif (pilihan =='state'):
+            if (role =='admin'):
+                printstate()
+            else:
+                printpetunjuk
         else:
             printpetunjuk()
             print()
