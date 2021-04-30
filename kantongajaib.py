@@ -468,7 +468,7 @@ def minta():                #F10
             consumable_name = consums[consumable_index][1]
             print("Item {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
-            print("\nGagal melakukan permintaan karena item tidak mencukupi")
+            print("\nGagal melakukan permintaan karena jumlah permintaan item tidak valid")
     else:
         if (not(isConsumableIDValid(item_ID)) and not(isDateValid(take_date))):
             print("Gagal melakukan permintaan karena ID item dan tanggal tidak valid")
