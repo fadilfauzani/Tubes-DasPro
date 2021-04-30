@@ -1,13 +1,4 @@
 id;username;nama;alamat;password;role
-<<<<<<< HEAD
-1;fadil;fadill;kotabumi;asdasd;admin
-2;fudil;fadill;kotabumi;asdasd;user
-3;RAM;Richard;Bogor;password;user
-4;RAM26;Richard;Bogor;p4ssword;admin
-5;oo0op;Register;kotabumi;asdfgh;user
-6;brandon;Brandon;mars;apaaja;admin
-=======
 1;fadil;fadill;kotabumi;yoD%cS;admin
 2;user1;User1;kotabumi;Js!Yw%8g1A57G;user
 9999;mark;mark;mark;mark;mark
->>>>>>> 105172de848c385838bdb4fb444f133ead7e6d26
