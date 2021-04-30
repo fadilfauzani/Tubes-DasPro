@@ -66,7 +66,7 @@ def hapusitem():
     id = input("Masukan ID item: ")
     if (idada(id)):
         hapus = input("Apakah anda yakin ingin menghapus Pintu ke ITB (Y/N)?")
-        if (hapus):
+        if (hapus ):
             if (id[0] == 'G'):
                 gadgets.pop(idxID(id))
             else:
