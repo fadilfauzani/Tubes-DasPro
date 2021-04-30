@@ -450,7 +450,7 @@ def isConsumableIDValid(item_ID):
 
 def isQuantityValidC(consumable_index,take_quantity):
     global consums
-    if (consums[consumable_index][3] >= take_quantity) :
+    if (consums[consumable_index][3] >= take_quantity) and (take_quantity > 0):
         return True
     else:
         return False
