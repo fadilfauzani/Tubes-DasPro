@@ -355,7 +355,6 @@ def caritahun() :           #F04
         print("Gadget dengan ketentuan tersebut tidak tersedia.")
 
 def printBorrowGadget(arr):
-    global gadgets, userid, riwpin_gadgets, riwpen_gadgets
     for i in range (len(arr)):
         print("{}. {} (x{})".format(arr[i][0],arr[i][2],arr[i][3]))
 
@@ -499,7 +498,7 @@ def isReturned(item_ID):
 
 def isQuantityValidG(gadget_index,borrow_quantity):
     global gadgets
-    if (gadgets[gadget_index][3] >= borrow_quantity):
+    if (gadgets[gadget_index][3] >= borrow_quantity) and (borrow_quantity > 0):
         return True
     else :
         return False
@@ -519,7 +518,7 @@ def pinjam():               #F08
                 gadget_name = gadgets[gadget_index][1]
                 print("Item {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
             else :
-                print("Gagal melakukan peminjaman karena jumlah melebihi batas")
+                print("Gagal melakukan peminjaman karena jumlah pinjaman tidak valid")
         else :
             print("Gagal melakukan peminjaman karena item belum dikembalikan")
     else :
