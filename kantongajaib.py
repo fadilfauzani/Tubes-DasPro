@@ -729,8 +729,7 @@ def gacha():                #FB03
         S = groupRarity("S")
 
         pool = [] #[nama_consums, rarity_consums]
-        for i in range (1):
-            pool.append([S[lcg(i+getTimeNumber(),len(S))],"S"])
+        pool.append([S[lcg(getTimeNumber(),len(S))],"S"])
 
         for i in range (3):
             pool.append([A[lcg(i+getTimeNumber(),len(A))],"A"])
