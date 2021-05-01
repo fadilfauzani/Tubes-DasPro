@@ -664,7 +664,7 @@ def groupRarity(rarity):
     arr = []
     for i in range (len(consums)):
         if (consums[i][4] == rarity):
-            arr.append([consums[i][0]])
+            arr.append(consums[i][0])
     return arr
 
 def addPool(pool,rarity,jumlah_consums,C,B,A,S):
@@ -719,7 +719,7 @@ def gacha():                #FB03
     global userid, consums, riw_consums, riw_gachas
 
     invent = inventory()
-    print(invent)
+
     if (len(invent) == 0):
         print("Inventory kosong")
     else:
