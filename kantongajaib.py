@@ -275,7 +275,7 @@ def hapusitem():            #F06
     global gadgets, consums
     id = input("Masukan ID item: ")
     if (idada(id)):
-        hapus = input("Apakah anda yakin ingin menghapus Pintu ke ITB (Y/N)?")
+        hapus = input("Apakah anda yakin ingin menghapus " + gadgets[idxID(id)][1] + " (Y/N)?")
         if (hapus == 'Y' or hapus == 'y'):
             if (id[0] == 'G'):
                 gadgets.pop(idxID(id))
@@ -954,7 +954,7 @@ else:
                 printpetunjuk()
             else:
                 gacha()
-            print
+            print()
         elif(pilihan == 'save'):
             save()
             print()
