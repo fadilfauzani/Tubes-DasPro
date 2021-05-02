@@ -276,6 +276,9 @@ def hapusitem():            #F06
     id = input("Masukan ID item: ")
     if (idada(id)):
         hapus = input("Apakah anda yakin ingin menghapus " + gadgets[idxID(id)][1] + " (Y/N)?")
+        while (hapus != 'y' or hapus != 'Y' or hapus != 'N' or hapus != 'n'):
+            print("Next?(Y/N)")
+            hapus = input()
         if (hapus == 'Y' or hapus == 'y'):
             if (id[0] == 'G'):
                 gadgets.pop(idxID(id))
@@ -568,6 +571,9 @@ def riwayatkembali():       #F12
         if (j == 5 and i != len(data_borrow)):
             print("Next?(Y/N)")
             mau = input()
+            while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
+                print("Next?(Y/N)")
+                mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -598,6 +604,9 @@ def riwayatambil():         #F13
         if (j == 5 and i != len(data_borrow)):
             print("Next?(Y/N)")
             mau = input()
+            while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
+                print("Next?(Y/N)")
+                mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -620,6 +629,9 @@ def riwayatpinjam():        #F11
         if (j == 5 and i != len(data_borrow)):
             print("Next?(Y/N)")
             mau = input()
+            while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
+                print("Next?(Y/N)")
+                mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -969,6 +981,9 @@ else:
         elif(pilihan == 'exit'):
             print('Apakah Anda mau melakukan penyimpanan file yang sudah diubah?(y/n)')
             mau = input()
+            while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
+                print("Next?(Y/N)")
+                mau = input()
             if (mau == 'Y' or mau == "y"):
                 save()
             print()
