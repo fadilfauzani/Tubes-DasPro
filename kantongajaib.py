@@ -253,7 +253,7 @@ def tambahitem():           #F05
     id = input("Masukan ID: ")
     if(idValid(id)):
         if (idada(id)):
-            print("\nGagal menambahkan item karena ID sudah ada")
+            print("\nGagal menambahkan item karena ID sudah ada.")
         else:
             nama = input("Masukan Nama: ")
             desk = input("Masukan Deskripsi: ")
@@ -266,10 +266,11 @@ def tambahitem():           #F05
                     gadgets.append([id,nama,desk,jum,rarity,tahun])
                 else:   #kalau bkan gadget maka consumbales
                     consums.append([id,nama,desk,jum,rarity])
+                print("\nItem telah berhasil ditambahkan ke database.")
             else:
                 print("\nInput rarity tidak valid!")
     else:
-        print("\nGagal menambahkan item karena ID tidak valid")
+        print("\nGagal menambahkan item karena ID tidak valid.")
 
 def hapusitem():            #F06
     global gadgets, consums
@@ -444,16 +445,16 @@ def kembalikan():           #F09
                 if (gadget_left == return_amount) :
                     riwpin_gadgets[temp_riwpin_gadgets[borrow_number-1][1]-1][5] = True
                 riwpen_gadgets.append([len(riwpen_gadgets)+1,temp_riwpin_gadgets[borrow_number-1][1],return_date,return_amount])
-                print("\nItem {} (x{}) telah dikembalikan".format(gadget_name, return_amount))
+                print("\nItem {} (x{}) telah dikembalikan.".format(gadget_name, return_amount))
             else:
-                print("\nGagal melakukan pengembalian karena jumlah pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena jumlah pengembalian tidak valid.")
         else:
             if (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number)) and not(isDateValid(return_date))):
-                print("\nGagal melakukan pengembalian karena nomor peminjaman dan tanggal pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena nomor peminjaman dan tanggal pengembalian tidak valid.")
             elif (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number))):
-                print("\nGagal melakukan pengembalian karena nomor peminjaman tidak valid")
+                print("\nGagal melakukan pengembalian karena nomor peminjaman tidak valid.")
             elif (not(isDateValid(return_date))):
-                print("\nGagal melakukan pengembalian karena tanggal pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena tanggal pengembalian tidak valid.")
 
 def isConsumableIDValid(item_ID):
     global consums
@@ -485,15 +486,15 @@ def minta():                #F10
             consumable_name = consums[consumable_index][1]
             print("\nItem {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
-            print("\nGagal melakukan permintaan karena jumlah permintaan item tidak valid")
+            print("\nGagal melakukan permintaan karena jumlah permintaan item tidak valid.")
     else:
         if (not(isConsumableIDValid(item_ID)) and not(isDateValid(take_date))):
-            print("\nGagal melakukan permintaan karena ID item dan tanggal tidak valid")
+            print("\nGagal melakukan permintaan karena ID item dan tanggal tidak valid.")
         else:
             if (not(isConsumableIDValid(item_ID))):
-                print("\nGagal melakukan permintaan karena ID item tidak valid")
+                print("\nGagal melakukan permintaan karena ID item tidak valid.")
             if (not(isDateValid(take_date))):
-                print("\nGagal melakukan permintaan karena tanggal tidak valid")
+                print("\nGagal melakukan permintaan karena tanggal tidak valid.")
 
 def isItemIDValid(item_ID):
     global gadgets
@@ -535,16 +536,16 @@ def pinjam():               #F08
                 gadget_name = gadgets[gadget_index][1]
                 print("\nItem {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
             else :
-                print("\nGagal melakukan peminjaman karena jumlah pinjaman tidak valid")
+                print("\nGagal melakukan peminjaman karena jumlah pinjaman tidak valid.")
         else :
-            print("\nGagal melakukan peminjaman karena item belum dikembalikan")
+            print("\nGagal melakukan peminjaman karena item belum dikembalikan.")
     else :
         if (not(isItemIDValid(item_ID)) and not(isDateValid(borrow_date))):
-            print("\nGagal melakukan peminjaman karena ID item dan tanggal peminjaman tidak valid")
+            print("\nGagal melakukan peminjaman karena ID item dan tanggal peminjaman tidak valid.")
         elif (not(isItemIDValid(item_ID))):
-            print("\nGagal melakukan peminjaman karena ID item tidak valid")
+            print("\nGagal melakukan peminjaman karena ID item tidak valid.")
         elif (not(isDateValid(borrow_date))):
-            print("\nGagal melakukan peminjaman karena tanggal peminjaman tidak valid") 
+            print("\nGagal melakukan peminjaman karena tanggal peminjaman tidak valid.") 
 
 def idxriw(id):
     global riwpin_gadgets
@@ -569,10 +570,10 @@ def riwayatkembali():       #F12
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next?(Y/N)")
+            print("Next? (y/n)")
             mau = input()
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next?(Y/N)")
+                print("Next? (y/n)")
                 mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
@@ -602,10 +603,10 @@ def riwayatambil():         #F13
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next?(Y/N)")
+            print("Next? (y/n)")
             mau = input()
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next?(Y/N)")
+                print("Next? (y/n)")
                 mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
@@ -627,10 +628,10 @@ def riwayatpinjam():        #F11
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next?(Y/N)")
+            print("Next? (y/n)")
             mau = input()
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next?(Y/N)")
+                print("Next? (y/n)")
                 mau = input()
             if (mau == 'Y' or mau == "y"):
                 j = 0
@@ -819,7 +820,7 @@ def gacha():                #FB03
 
 
 def printpetunjuk():
-    print("Command error. Command tidak ada atau kamu tidak memiliki akses untuk memanggil command tersebut")
+    print("Command error. Command tidak ada atau kamu tidak memiliki akses untuk memanggil command tersebut.")
     print("ketik help untuk melihat daftar command!")
     print()
 
@@ -975,10 +976,10 @@ else:
                 helpuser()
             print()
         elif(pilihan == 'exit'):
-            print('Apakah Anda mau melakukan penyimpanan file yang sudah diubah?(y/n)')
+            print('Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)')
             mau = input()
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next?(Y/N)")
+                print("Next? (y/n)")
                 mau = input()
             if (mau == 'Y' or mau == "y"):
                 save()
