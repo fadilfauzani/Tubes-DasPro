@@ -161,8 +161,8 @@ def register() :            #F01
         print("Username sudah ada, registrasi gagal")
 
 def save():                 #F15
-    path = input("Masukkan nama folder penyimpanan: ")
-    path = 'saves/' + path
+    temp_path = input("Masukkan nama folder penyimpanan: ")
+    path = 'saves/' + temp_path
     try:
         os.mkdir(path)
         
@@ -210,6 +210,10 @@ def save():                 #F15
     riwpin_gadget.close()
     riwpen_gadget.close()
     riw_gacha.close()
+    print()
+    print("Saving...")
+    time.sleep(1)
+    print("Data telah dismpan pada folder " + temp_path)
 
 def idxID(id):              
     global gadgets, consums
@@ -887,7 +891,12 @@ if (args.folder=='default_flag'):
     print("Usage: Python kantongajaib.py <nama_folder>")
     exit()
 else:
+    print()
+    print("Loading...")
+    print()
     load(args.folder)
+    time.sleep(1)
+    print('Selamat datang di "Kantong Ajaib!"')
     login()
     print()
     while (True and userid != ''):
