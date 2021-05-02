@@ -560,7 +560,7 @@ def riwayatkembali():       #F12
         print("ID Pengembalian          : "+ str(data_borrow[i][0]))
         print("Nama pengambil           : "+ str(carinama(riwpin_gadgets[idxriw(data_borrow[i][1])][1])))
         print("Nama Gadget              : "+ gadgets[idxID(riwpin_gadgets[idxriw(data_borrow[i][1])][2])][1])
-        print("Tanggal Peminjaman       : " + data_borrow[i][2])
+        print("Tanggal Pengembalian     : " + data_borrow[i][2])
         print("Jumlah yang dikembalikan : "+ str(data_borrow[i][3]))
         print()
         j += 1
@@ -580,6 +580,29 @@ def carinama(userid):
         if (userid == users[i][1]):
             nama = users[i][2]
     return nama
+
+def riwayatambil():         #F13
+    global riw_consums, consums
+    data_borrow = sorted(riw_consums, key=lambda row: datetime.strptime(row[3],'%d/%m/%Y') ,reverse=True)
+    i = 0
+    j = 0
+    while (i<len(data_borrow) and j<5):
+        print("ID Pengambilan       : "+ str(data_borrow[i][0]))
+        print("Nama pengambil       : "+ carinama(data_borrow[i][1]))
+        print("Nama Consumable      : "+ consums[idxID(data_borrow[i][2])][1])
+        print("Tanggal Pengambilan  : " + data_borrow[i][3])
+        print("Jumlah               : "+ str(data_borrow[i][4]))
+        print()
+        j += 1
+        i += 1
+        if (j == 5 and i != len(data_borrow)):
+            print("Next?(Y/N)")
+            mau = input()
+            if (mau == 'Y' or mau == "y"):
+                j = 0
+    if (i == 0):
+        print("Riwayat pengambilan consumable masih kosong.")
+
 def riwayatpinjam():        #F11
     global riwpin_gadgets, gadgets
     data_borrow = sorted(riwpin_gadgets, key=lambda row: datetime.strptime(row[3],'%d/%m/%Y') ,reverse=True)
@@ -602,27 +625,6 @@ def riwayatpinjam():        #F11
     if (i == 0):
         print("Riwayat peminjaman gadget masih kosong.")
 
-def riwayatambil():         #F13
-    global riw_consums, consums
-    data_borrow = sorted(riw_consums, key=lambda row: datetime.strptime(row[3],'%d/%m/%Y') ,reverse=True)
-    i = 0
-    j = 0
-    while (i<len(data_borrow) and j<5):
-        print("ID Pengambilan       : "+ str(data_borrow[i][0]))
-        print("Nama pengambil       : "+ carinama(data_borrow[i][1]))
-        print("Nama Consumable      : "+ consums[idxID(data_borrow[i][2])][1])
-        print("Tanggal Peminjaman   : " + data_borrow[i][3])
-        print("Jumlah               : "+ str(data_borrow[i][4]))
-        print()
-        j += 1
-        i += 1
-        if (j == 5 and i != len(data_borrow)):
-            print("Next?(Y/N)")
-            mau = input()
-            if (mau == 'Y' or mau == "y"):
-                j = 0
-    if (i == 0):
-        print("Riwayat pengambilan consumable masih kosong.")
 
 def lcg(seed,modulo):
     seed = (104729 * seed + 7919) % modulo
