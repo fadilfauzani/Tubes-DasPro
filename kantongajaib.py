@@ -258,6 +258,9 @@ def tambahitem():           #F05
             nama = input("Masukan Nama: ")
             desk = input("Masukan Deskripsi: ")
             jum = input("Masukan Jumlah: ")
+            while (jum < 0):
+                print("Jumlah salah, masukkan jumlah yang benar > 0")
+                jum = input("Masukan Jumlah: ")
             rarity = input("Masukan Rarity: ")
             if (rarityValid(rarity)):
                 isGadget = (id[0] == 'G') #ekspresi boolean
@@ -285,6 +288,7 @@ def hapusitem():            #F06
                 gadgets.pop(idxID(id))
             else:
                 consums.pop(idxID(id))
+            print()
             print("Item telah berhasil dihapus dari database.")
         else:
             print("Item gagal dihapus dari database.")
