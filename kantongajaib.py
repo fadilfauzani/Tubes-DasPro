@@ -304,6 +304,9 @@ def ubahjum():              #F07
             if (jumlah > 0):
                 gadgets[idxID(id)][3] = str(jumasli + jumlah)
                 print(f'{jumlah} {gadgets[idxID(id)][1]} berhasil ditambahkan. Stok sekarang: {gadgets[idxID(id)][3]}')
+            elif (jumlah == 0) :
+                print(f'{gadgets[idxID(id)][1]} tidak ditambahkan / dibuang. Stok sekarang: {gadgets[idxID(id)][3]}')
+
             else:
                 if (jumasli + jumlah < 0):
                     print(f'{-jumlah} {gadgets[idxID(id)][1]} gagal dibuang karena stok kurang. Stok sekarang: {gadgets[idxID(id)][3]} < {-jumlah}')
