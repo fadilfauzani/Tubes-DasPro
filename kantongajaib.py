@@ -437,7 +437,7 @@ def kembalikan():           #F09
     else:
         temp_riwpin_gadgets = borrowGadget()
         printBorrowGadget(temp_riwpin_gadgets)
-
+        print()
         borrow_number = int(input("Masukan nomor peminjaman: "))
         return_date = input("Tanggal pengembalian: ")
         return_amount = int(input("Jumlah pengembalian: "))
