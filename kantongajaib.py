@@ -217,7 +217,7 @@ def save():                 #F15
 
 def idxID(id):              
     global gadgets, consums
-    idx = -1
+    idx = 9999
     if (id[0] == 'G'):
         for i in range(len(gadgets)):
             if (id == gadgets[i][0]):
