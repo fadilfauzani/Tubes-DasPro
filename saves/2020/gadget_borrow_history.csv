@@ -1,4 +1,2 @@
 id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned
-1;12345;G1;02/05/2021;2;False
-2;12345;G5;02/05/2021;10;False
 9999;mark;mark;mark;9999;True
