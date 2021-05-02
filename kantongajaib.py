@@ -279,10 +279,9 @@ def hapusitem():            #F06
     global gadgets, consums
     id = input("Masukan ID item: ")
     if (idada(id)):
-        hapus = input("Apakah anda yakin ingin menghapus " + gadgets[idxID(id)][1] + " (Y/N)?")
+        hapus = input("Apakah anda yakin ingin menghapus " + gadgets[idxID(id)][1] + " (Y/N)? : ")
         while (hapus != 'y' and hapus != 'Y' and hapus != 'N' and hapus != 'n'):
-            print("Next?(Y/N)")
-            hapus = input()
+            hapus = input("Next (Y/N)? : ")
         if (hapus == 'Y' or hapus == 'y'):
             if (id[0] == 'G'):
                 gadgets.pop(idxID(id))
@@ -574,11 +573,9 @@ def riwayatkembali():       #F12
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next? (y/n)")
-            mau = input()
+            mau = input("Next (Y/N)? : ")
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next? (y/n)")
-                mau = input()
+                mau = input("Next (Y/N)? : ")
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -607,11 +604,9 @@ def riwayatambil():         #F13
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next? (y/n)")
-            mau = input()
+            mau = input("Next (Y/N)? : ")
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next? (y/n)")
-                mau = input()
+                mau = input("Next (Y/N)? : ")
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -632,11 +627,9 @@ def riwayatpinjam():        #F11
         j += 1
         i += 1
         if (j == 5 and i != len(data_borrow)):
-            print("Next? (y/n)")
-            mau = input()
+            mau = input("Next (Y/N)? : ")
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next? (y/n)")
-                mau = input()
+                mau = input("Next (Y/N)? : ")
             if (mau == 'Y' or mau == "y"):
                 j = 0
     if (i == 0):
@@ -782,10 +775,10 @@ def gacha():                #FB03
         invent = inventory()
 
         while (len(invent) != 0):
-            lagi = input("\nTambahkan item lagi? (y/n) : ")
+            lagi = input("\nTambahkan item lagi (Y/N)? : ")
             while ((lagi != "Y") and (lagi != "y") and (lagi != "N") and (lagi != "n")):
                 print("Masukan tidak valid")
-                lagi = input("Tambahkan item lagi? (y/n) : ")
+                lagi = input("Tambahkan item lagi (Y/N)? : ")
 
             if ((lagi == 'N') or (lagi == 'n')):
                 break
@@ -980,11 +973,9 @@ else:
                 helpuser()
             print()
         elif(pilihan == 'exit'):
-            print('Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)')
-            mau = input()
+            mau = input('Apakah Anda mau melakukan penyimpanan file yang sudah diubah (Y/N)? : ')
             while (mau != 'y' and mau != 'Y' and mau != 'N' and mau != 'n'):
-                print("Next? (y/n)")
-                mau = input()
+                mau = input("Mau (Y/N)? : ")
             if (mau == 'Y' or mau == "y"):
                 save()
             print()
