@@ -20,30 +20,36 @@ def csvtodata(csv,type):
     datas = []
     f = open(csv, "r")
     lines  = f.readlines()
-    lines.pop(0)
+    lines.pop(0)        #menghilangan bagian judul
     if (type == "users"):
-        for i in lines:
+        while lines[i][0] != 'xxx':     #mark
             datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],stringtodata(i)[4],stringtodata(i)[5]))
+            i += 1
         return datas
     elif(type == "gadgets"):
-        for i in lines:
+        while lines[i][0] != 'xxx':
             datas.append((stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4],int(stringtodata(i)[5])))
+            i += 1
         return datas
     elif(type == "consums"):
-        for i in lines:
+        while lines[i][0] != 'xxx':
             datas.append((stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],int(stringtodata(i)[3]),stringtodata(i)[4]))
+            i+=1
         return datas
     elif(type == "riwpin_gadgets"):
-        for i in lines:
+        while lines[i][0] != 'xxx':
             datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])))
+            i+=1
         return datas
     elif(type == "riwpen_gadgets"):
-        for i in lines:
+        while lines[i][0] != 'xxx':
             datas.append((int(stringtodata(i)[0]),stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3]))
+            i+=1
         return datas
     elif(type == "riw_consums"):
-        for i in lines:
+        while lines[i][0] != 'xxx':
             datas.append((stringtodata(i)[0],stringtodata(i)[1],stringtodata(i)[2],stringtodata(i)[3],int(stringtodata(i)[4])))
+            i+=1
         return datas
 print(csvtodata("saves/2021/user.csv","user"))
 print(csvtodata("saves/2021/gadget.csv","gadget"))
