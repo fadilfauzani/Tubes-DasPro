@@ -276,7 +276,7 @@ def hapusitem():            #F06
     id = input("Masukan ID item: ")
     if (idada(id)):
         hapus = input("Apakah anda yakin ingin menghapus " + gadgets[idxID(id)][1] + " (Y/N)?")
-        while (hapus != 'y' or hapus != 'Y' or hapus != 'N' or hapus != 'n'):
+        while (hapus != 'y' and hapus != 'Y' and hapus != 'N' and hapus != 'n'):
             print("Next?(Y/N)")
             hapus = input()
         if (hapus == 'Y' or hapus == 'y'):
@@ -893,10 +893,7 @@ else:
     while (True and userid != ''):
         pilihan = input(">>>")
         print()
-        if (pilihan == 'login'):
-            login()
-            print()
-        elif (pilihan == 'register'):
+        if (pilihan == 'register'):
             if (role == 'admin'):
                 register()
             else:
