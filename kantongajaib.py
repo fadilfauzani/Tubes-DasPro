@@ -890,7 +890,7 @@ else:
     login()
     print()
     while (True and userid != ''):
-        pilihan = input(">>>")
+        pilihan = input(">>> ")
         print()
         if (pilihan == 'register'):
             if (role == 'admin'):
