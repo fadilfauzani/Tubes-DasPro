@@ -991,7 +991,7 @@ else:
             if (role =='admin'):
                 printstate()
             else:
-                printpetunjuk
+                printpetunjuk()
         else:
             printpetunjuk()
             print()
