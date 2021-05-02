@@ -992,4 +992,3 @@ else:
                 printpetunjuk()
         else:
             printpetunjuk()
-            print()
