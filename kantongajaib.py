@@ -834,7 +834,6 @@ def printstate():           #for debugging
     print('role = ', role)
 def helpumum():
     print('=============== HELP ===============')
-    print('login - untuk melakukan login ke dalam sistem')
     print('carirarity - untuk mencari gadget berdasarkan rarity-nya')
     print('caritahun - untuk mencari gadget berdasarkan tahun ditemukannya')
     print('save - untuk menyimpan progress anda')
