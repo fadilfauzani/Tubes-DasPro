@@ -1,10 +1,2 @@
 id;id_pengambil;id_consumable;tanggal_pengambilan;jumlah
-1;user1;C1;01/05/2021;20
-2;user1;C2;01/05/2021;25
-3;user1;C3;01/05/2021;1
-4;user1;C2;01/05/2021;1
-5;user1;C1;01/05/2021;1
-6;user1;C2;01/05/2021;1
-7;user1;C2;01/05/2021;1
-8;don;C5;02/05/2021;10
 9999;mark;mark;mark;9999
