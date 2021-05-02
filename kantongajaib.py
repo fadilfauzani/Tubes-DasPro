@@ -99,7 +99,7 @@ def login() :               #F02
     global userid, role
     akses = False
 
-    username = input("Masukan username : ")
+    username = input("\nMasukan username : ")
     password = input("Masukan password : ")
 
     for i in range (len(users)) :
@@ -324,7 +324,7 @@ def carirarity() :          #F03
     available = False
     rarity = input("Masukan rarity : ")
     print()
-    print("Hasil pencarian : ")
+    print("========= HASIL PENCARIAN ==========")
 
     for i in range (len(gadgets)) :
         if rarity == gadgets[i][4] :
@@ -348,7 +348,7 @@ def caritahun() :           #F04
     tahun = int(input("Masukan tahun : "))
     kategori = input("Masukan kategori : ")
     print()
-    print("Hasil pencarian : ")
+    print("========= HASIL PENCARIAN ==========")
 
     for i in range (len(gadgets)) :
         if kategori == "=" and gadgets[i][5] == tahun :
@@ -444,16 +444,16 @@ def kembalikan():           #F09
                 if (gadget_left == return_amount) :
                     riwpin_gadgets[temp_riwpin_gadgets[borrow_number-1][1]-1][5] = True
                 riwpen_gadgets.append([len(riwpen_gadgets)+1,temp_riwpin_gadgets[borrow_number-1][1],return_date,return_amount])
-                print("Item {} (x{}) telah dikembalikan".format(gadget_name, return_amount))
+                print("\nItem {} (x{}) telah dikembalikan".format(gadget_name, return_amount))
             else:
-                print("Gagal melakukan pengembalian karena jumlah pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena jumlah pengembalian tidak valid")
         else:
             if (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number)) and not(isDateValid(return_date))):
-                print("Gagal melakukan pengembalian karena nomor peminjaman dan tanggal pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena nomor peminjaman dan tanggal pengembalian tidak valid")
             elif (not(isBorrowNumberValid(temp_riwpin_gadgets,borrow_number))):
-                print("Gagal melakukan pengembalian karena nomor peminjaman tidak valid")
+                print("\nGagal melakukan pengembalian karena nomor peminjaman tidak valid")
             elif (not(isDateValid(return_date))):
-                print("Gagal melakukan pengembalian karena tanggal pengembalian tidak valid")
+                print("\nGagal melakukan pengembalian karena tanggal pengembalian tidak valid")
 
 def isConsumableIDValid(item_ID):
     global consums
@@ -483,17 +483,17 @@ def minta():                #F10
             consums[consumable_index][3] = consums[consumable_index][3] - take_quantity
             riw_consums.append([(len(riw_consums) + 1),userid,item_ID,take_date,take_quantity])
             consumable_name = consums[consumable_index][1]
-            print("Item {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
+            print("\nItem {} (x{}) telah berhasil diambil!".format(consumable_name,take_quantity))
         else:
             print("\nGagal melakukan permintaan karena jumlah permintaan item tidak valid")
     else:
         if (not(isConsumableIDValid(item_ID)) and not(isDateValid(take_date))):
-            print("Gagal melakukan permintaan karena ID item dan tanggal tidak valid")
+            print("\nGagal melakukan permintaan karena ID item dan tanggal tidak valid")
         else:
             if (not(isConsumableIDValid(item_ID))):
-                print("Gagal melakukan permintaan karena ID item tidak valid")
+                print("\nGagal melakukan permintaan karena ID item tidak valid")
             if (not(isDateValid(take_date))):
-                print("Gagal melakukan permintaan karena tanggal tidak valid")
+                print("\nGagal melakukan permintaan karena tanggal tidak valid")
 
 def isItemIDValid(item_ID):
     global gadgets
@@ -533,18 +533,18 @@ def pinjam():               #F08
                 gadgets[gadget_index][3] = gadgets[gadget_index][3] - borrow_quantity
                 riwpin_gadgets.append([(len(riwpin_gadgets) + 1),userid,item_ID,borrow_date,borrow_quantity,False])
                 gadget_name = gadgets[gadget_index][1]
-                print("Item {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
+                print("\nItem {} (x{}) berhasil dipinjam!".format(gadget_name,borrow_quantity))
             else :
-                print("Gagal melakukan peminjaman karena jumlah pinjaman tidak valid")
+                print("\nGagal melakukan peminjaman karena jumlah pinjaman tidak valid")
         else :
-            print("Gagal melakukan peminjaman karena item belum dikembalikan")
+            print("\nGagal melakukan peminjaman karena item belum dikembalikan")
     else :
         if (not(isItemIDValid(item_ID)) and not(isDateValid(borrow_date))):
-            print("Gagal melakukan peminjaman karena ID item dan tanggal peminjaman tidak valid")
+            print("\nGagal melakukan peminjaman karena ID item dan tanggal peminjaman tidak valid")
         elif (not(isItemIDValid(item_ID))):
-            print("Gagal melakukan peminjaman karena ID item tidak valid")
+            print("\nGagal melakukan peminjaman karena ID item tidak valid")
         elif (not(isDateValid(borrow_date))):
-            print("Gagal melakukan peminjaman karena tanggal peminjaman tidak valid") 
+            print("\nGagal melakukan peminjaman karena tanggal peminjaman tidak valid") 
 
 def idxriw(id):
     global riwpin_gadgets
@@ -668,10 +668,10 @@ def inventory():
     return arr
 
 def cetakInventory(arr):
-    print("==========INVENTORY==========")
+    print("\n============ INVENTORY =============")
     for i in range (len(arr)):
         print("{}. {} (Rarity {}) ({})".format(arr[i][0],arr[i][2],arr[i][3],arr[i][4]))
-    print("=============================")
+    print("====================================")
 
 def groupRarity(rarity):
     global consums
@@ -758,7 +758,7 @@ def gacha():                #FB03
         
         cetakInventory(invent)
 
-        pilih_consums = int(input("Pilih consumable yang mau digunakan: "))
+        pilih_consums = int(input("\nPilih consumable yang mau digunakan: "))
         while (not(isPilihConsumsValid(invent,pilih_consums))):
             print("Masukan tidak valid")
             pilih_consums = int(input("Pilih consumable yang mau digunakan: "))
@@ -769,7 +769,7 @@ def gacha():                #FB03
             jumlah_consums = int(input("Jumlah yang akan digunakan: "))
 
 
-        print("{} (x{}) ditambahkan!".format(invent[pilih_consums-1][2],jumlah_consums))
+        print("\n{} (x{}) ditambahkan!".format(invent[pilih_consums-1][2],jumlah_consums))
         rarity = invent[pilih_consums-1][3]
         pool = addPool(pool,rarity,jumlah_consums,C,B,A,S)
         riw_gachas.append([len(riw_gachas)+1,userid,invent[pilih_consums-1][1],tanggal_gacha,jumlah_consums])
@@ -777,7 +777,7 @@ def gacha():                #FB03
         invent = inventory()
 
         while (len(invent) != 0):
-            lagi = input("Tambahkan item lagi? (y/n) : ")
+            lagi = input("\nTambahkan item lagi? (y/n) : ")
             while ((lagi != "Y") and (lagi != "y") and (lagi != "N") and (lagi != "n")):
                 print("Masukan tidak valid")
                 lagi = input("Tambahkan item lagi? (y/n) : ")
@@ -787,25 +787,25 @@ def gacha():                #FB03
             else:
                 cetakInventory(invent)
 
-                pilih_consums = int(input("Pilih consumable yang mau digunakan: "))
+                pilih_consums = int(input("\nPilih consumable yang mau digunakan: "))
                 while (not(isPilihConsumsValid(invent,pilih_consums))):
                     print("Masukan tidak valid")
                     pilih_consums = int(input("Pilih consumable yang mau digunakan: "))
 
-                jumlah_consums = int(input("Jumlah yang akan digunakan: "))
+                jumlah_consums = int(input("\nJumlah yang akan digunakan: "))
                 while (not(isJumlahConsumsValid(invent,pilih_consums,jumlah_consums))):
                     print("Masukan tidak valid")
                     jumlah_consums = int(input("Jumlah yang akan digunakan: "))
 
 
-                print("{} (x{}) ditambahkan!".format(invent[pilih_consums-1][2],jumlah_consums))
+                print("\n{} (x{}) ditambahkan!".format(invent[pilih_consums-1][2],jumlah_consums))
                 rarity = invent[pilih_consums-1][3]
                 pool = addPool(pool,rarity,jumlah_consums,C,B,A,S)
                 riw_gachas.append([len(riw_gachas)+1,userid,invent[pilih_consums-1][1],tanggal_gacha,jumlah_consums])
 
                 invent = inventory()
 
-        print("Rolling...")
+        print("\nRolling...")
         time.sleep(3)
 
         hasil = hasilGacha(pool) #[id_consums,rarity_consums]
@@ -815,7 +815,7 @@ def gacha():                #FB03
         consums[consumable_index][3] = consums[consumable_index][3] - 1
         riw_consums.append([(len(riw_consums) + 1),userid,hasil[0],tanggal_gacha,1])
         consumable_name = consums[consumable_index][1]
-        print("Selamat, Anda mendapatkan {} (Rank {})!".format(consumable_name,hasil[1]))
+        print("\nSelamat, Anda mendapatkan {} (Rank {})!".format(consumable_name,hasil[1]))
 
 
 def printpetunjuk():
