@@ -213,7 +213,7 @@ def save():                 #F15
     print()
     print("Saving...")
     time.sleep(1)
-    print("Data telah dismpan pada folder " + temp_path)
+    print("Data telah dismpan pada folder " + temp_path + "!")
 
 def idxID(id):              
     global gadgets, consums
