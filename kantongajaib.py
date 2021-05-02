@@ -946,19 +946,19 @@ else:
                 riwayatpinjam()
             else:
                 printpetunjuk()
-            print()
+                print()
         elif(pilihan == 'riwayatkembali'):
             if (role == 'admin'):
                 riwayatkembali()
             else:
                 printpetunjuk()
-            print()
+                print()
         elif(pilihan == 'riwayatambil'):
             if (role == 'admin'):
                 riwayatambil()
             else:
                 printpetunjuk()
-            print()
+                print()
         elif(pilihan == 'gacha'):
             if (role == 'admin'):
                 printpetunjuk()
